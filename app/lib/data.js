@@ -1157,7 +1157,7 @@ export const PROGRAM_GALLERY = [
   { src: '/img/otherimages/IMG-20230902-WA0022.jpg', alt: 'Program session 10' },
   { src: '/img/otherimages/IMG-20230902-WA0028.jpg', alt: 'Program session 11' },
   { src: '/img/otherimages/IMG-20230908-WA0062.jpg', alt: 'Program session 12' },
-  { src: '/img/otherimages/team 2.jpg', alt: 'Program session 13' },
+
   { src: '/img/otherimages/IMG-20251226-WA0072.jpg', alt: 'Program session 14' },
   { src: '/img/otherimages/IMG-20251226-WA0086.jpg', alt: 'Program session 15' },
   { src: '/img/otherimages/IMG_20230908_112213.jpg', alt: 'Program session 16' },
