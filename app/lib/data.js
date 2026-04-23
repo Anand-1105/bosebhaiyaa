@@ -785,7 +785,7 @@ export const PEOPLE = [
     prev: 'Microsoft',
     tags: ['CTO', 'Microsoft', 'AI Advisor', 'Investor'],
     li: 'https://www.linkedin.com/in/vivsridh/',
-    img: '/img/gallery/7.jpeg',
+    img: '/img/gallery/vivek-sridhar-new.jpg',
     posts: [],
   },
   {
