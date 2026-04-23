@@ -1151,8 +1151,9 @@ export const PROGRAM_GALLERY = [
   { src: '/img/otherimages/1770234692913.jpeg', alt: 'Program session 4' },
   { src: '/img/otherimages/1770234696510.jpeg', alt: 'Program session 5' },
   { src: '/img/otherimages/1771738357897.jpeg', alt: 'Program session 6' },
-  { src: '/img/otherimages/team 1.jpg', alt: 'Program session 7' },
-  { src: '/img/otherimages/DSC09675.JPG', alt: 'Program session 8' },
+  { src: '/img/gallery/team-1.jpg', alt: 'Program session 7' },
+  { src: '/img/gallery/team-2.jpg', alt: 'Program session 8' },
+  { src: '/img/gallery/team-3.jpg', alt: 'Program session 9' },
   { src: '/img/otherimages/IMG-20230902-WA0022.jpg', alt: 'Program session 10' },
   { src: '/img/otherimages/IMG-20230902-WA0028.jpg', alt: 'Program session 11' },
   { src: '/img/otherimages/IMG-20230908-WA0062.jpg', alt: 'Program session 12' },
@@ -1552,7 +1553,7 @@ export const MEETS = [
     category: 'Academia',
     color: '#0A66C2',
     photos: [
-      '/img-1/meets/rajeev-sobti.png',
+      '/img/gallery/rajeev-sobti-fixed.png',
     ],
   },
   {
@@ -1594,7 +1595,7 @@ export const MEETS = [
     category: 'Tech Leader',
     color: '#0D9488',
     photos: [
-      '/img-1/meets/shailesh-kumar-new.jpg',
+      '/img/meets/shailesh-kumar-1.jpeg',
       '/img/meets/shailesh-kumar-1.jpeg',
       '/img/meets/shailesh-kumar-2.jpeg',
       '/img/meets/shailesh-kumar-3.jpeg',
