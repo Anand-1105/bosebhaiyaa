@@ -636,7 +636,7 @@ export const PEOPLE = [
     prev: 'Amazon Engineering',
     tags: ['Google', 'Engineering Leader', 'Cornell', '$1B+ Programs'],
     li: 'https://www.linkedin.com/in/rajya-vardhan/',
-    img: '/img/gallery/rajya.jpg',
+    img: '/img/gallery/rajya_v2.jpg',
     posts: [
       'https://www.linkedin.com/posts/rajya-vardhan_from-quitting-amazon-to-becoming-a-founding-activity-7309098151896879104-LJ7V',
     ],
@@ -678,7 +678,7 @@ export const PEOPLE = [
     prev: 'Meta / Salesforce / Tesla',
     tags: ['Tech Lead', 'Ex-Meta', 'Ex-Tesla', 'Career Growth'],
     li: 'https://www.linkedin.com/in/hemant-pandey/',
-    img: '/img/gallery/hemant.jpg',
+    img: '/img/gallery/hemant_v2.jpg',
     posts: [],
   },
   {
@@ -698,7 +698,7 @@ export const PEOPLE = [
     prev: 'JPMC',
     tags: ['JPMC', 'SDE 2', 'Backend', 'Mentorship'],
     li: 'https://www.linkedin.com/in/vanshikapandeyy/',
-    img: '/img/techfluence/s6/guests/guest2.JPG',
+    img: '/img/techfluence/s6/guests/guest2_v2.jpg',
     posts: [],
   },
   {
@@ -741,7 +741,7 @@ export const PEOPLE = [
     prev: 'Digital Strategy Leader',
     tags: ['Volvo Cars', 'Digital India', 'Commercial Head', 'Leadership'],
     li: 'https://www.linkedin.com/in/prashanth-kumar-3ab702a/',
-    img: '/img/techfluence/s6/guests/guest4.jpeg',
+    img: '/img/techfluence/s6/guests/guest4_v2.jpg',
     posts: [
       'https://www.linkedin.com/posts/prashanth-kumar-3ab702a_techfluence-ai-engineeringleadership-activity-7428302752696442880-TD8Y',
     ],
@@ -753,7 +753,7 @@ export const PEOPLE = [
     prev: 'Engineering Leader',
     tags: ['Walmart', 'Retail Tech', 'Engineering Manager'],
     li: '',
-    img: '/img/techfluence/s6/guests/guest5.jpeg',
+    img: '/img/techfluence/s6/guests/guest5_v2.jpg',
     posts: [],
   },
   {
@@ -763,7 +763,7 @@ export const PEOPLE = [
     prev: 'Student → Microsoft',
     tags: ['Microsoft', 'Software Engineer', 'Women in Tech', 'Inspiration'],
     li: 'https://www.linkedin.com/in/nancysolanki/',
-    img: '/img/techfluence/s6/guests/guest6.JPG',
+    img: '/img/techfluence/s6/guests/guest6_v2.jpg',
     posts: [],
   },
 
