@@ -15,7 +15,7 @@ import {
 // Create a custom OpenAI client pointing to OpenRouter
 const openrouter = createOpenAI({
   baseURL: 'https://openrouter.ai/api/v1',
-  apiKey: process.env.OPENROUTER_API_KEY || "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",
+  apiKey: process.env.OPENROUTER_API_KEY,
   // OpenRouter requires standard HTTP headers for OpenAI compatibility depending on the fetch call,
   // but Vercel AI SDK handles it smoothly. We'll set a default header just in case.
   headers: {

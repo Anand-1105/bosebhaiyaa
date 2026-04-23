@@ -4,218 +4,23 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Bot, User, RefreshCw, Loader2 } from 'lucide-react';
 import { HERO } from '../../lib/data';
 
-const OPENROUTER_KEY = "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";
-const MODEL = "openai/gpt-4o-mini";
-const SYSTEM_PROMPT = `You are the personal AI assistant of Souhardya Bose, embedded on his official portfolio website.
-Answer all questions about Souhardya in a friendly, concise, and professional tone. Keep replies under 150 words unless more detail is genuinely needed. Never make up information not listed below.
-
-===========================
-PERSONAL INFO
-===========================
-Full Name: Souhardya Bose
-Current Role: Assistant Professor & Head of Student Success Centre (SCC) at Lovely Professional University (LPU)
-Location: Punjab, India
-Email: info.souhardya.bose@gmail.com
-Phone: +91 8582988799
-YouTube: 45K+ subscribers
-LinkedIn: 194K+ followers
-Identity: Professor · Builder · Lead · Speaker · Influencer · Founder · Policy Advisor · Innovator
-
-===========================
-EDUCATION
-===========================
-- M.Tech in Computer Science — LPU (2023–2025)
-- B.Tech in Computer Science — LPU (2019–2023)
-
-===========================
-WORK EXPERIENCE
-===========================
-1. Assistant Professor & SCC Head — Lovely Professional University (Jul 2025 – Present)
-   - Led student success initiatives for 20,000+ CSE students
-   - Managed 150+ core members and 20+ clubs
-   - Organized 50+ tech events and onboarded 30+ CXOs
-   - Co-built TeachGenie — an AI-powered teaching platform at LPU
-
-2. Product & Innovation Associate Intern — LPU Corporate Engagement & Growth (Apr 2025 – Jun 2025)
-   - Founded Techfluence (6 editions) and Finfluence events
-   - Achieved 9M+ reach with 30+ global leaders
-   - Led 250+ students and 30+ staff
-   - Built an event + influencer tech platform
-
-3. NEP Sarthi Education Reform Officer — UGC, Govt. of India (Sep 2023 – Jun 2025, Volunteer)
-   - Worked with UGC Chairman on national education policy
-   - Built research frameworks addressing academia-industry gaps
-   - Represented LPU to the UGC Chairman in New Delhi
-
-4. Full Stack Developer Intern & Community Lead — Indian Cyber Security Solutions (Oct 2022 – Apr 2023)
-   - Built SAVE-AI — an AI-powered vulnerability assessment tool
-   - Designed backend architecture and tested scalable APIs
-
-5. Lead Product & Strategy (Volunteer) — Mentro, Y Combinator Top 10% (Feb 2021 – Mar 2023)
-   - Scaled platform to 50,000+ downloads
-   - Enabled 5,000+ mentorship sessions
-   - Led product strategy and UX improvements
-
-===========================
-STARTUPS & PROJECTS
-===========================
-1. TeachGenie (2024) — Active
-   - Co-Founder & Product Lead
-   - Intelligent teaching & learning platform co-built at LPU
-   - Automates lesson planning, quiz generation, and student progress analytics
-   - 20K+ users | 95% satisfaction | 3x faster lesson prep
-
-2. SAVE-AI (2023) — Shipped
-   - Full Stack Developer & Architect
-   - AI-powered vulnerability assessment tool built during internship at Indian Cyber Security Solutions
-   - 85% accuracy | 10x faster scans | 500+ tests run
-
-3. Mentro (2021) — YC Backed, Top 10%
-   - Lead Product & Strategy
-   - Peer-to-peer mentorship platform
-   - 50K+ downloads | 5K+ mentorship sessions | Y Combinator Top 10%
-
-4. Cancer Detection Framework (Key Project)
-   - Intelligent web framework for gastrointestinal cancer detection
-   - DenseNet CNN trained on 9,000+ medical images
-   - Built with React.js + FastAPI + TensorFlow + Hugging Face + Render
-   - Generates automated PDF reports for clinical use
-
-===========================
-TECHFLUENCE — FLAGSHIP EVENT SERIES
-===========================
-Techfluence is Souhardya's signature tech event series at LPU with 6 editions, 9M+ total reach, and 30+ global leaders.
-
-- Techfluence 1.0 (Feb 2023) — The Ignition | 500+ attendees | 2,000+ reach
-- Techfluence 2.0 (Jun 2023) — The Builder | 800+ attendees | 1.5M+ reach | 24-hour hackathon
-- Techfluence 3.0 (Nov 2023) — Awakening | 1,200+ attendees | 3M+ reach | AI/ML focus, Meta ML engineers
-- Techfluence 4.0 (Apr 2024) — The Scale | 2,000+ attendees | 5M+ reach | 5 countries, global VCs
-- Techfluence 5.0 (Sep 2024) — The Community | 3,000+ attendees | 7M+ reach | 100+ student projects, NASSCOM
-- Techfluence 6.0 (Mar 2025) — The Frontier | 5,000+ attendees | 9M+ reach | 30+ global leaders, Fortune 500 CXOs
-
-===========================
-OTHER FLAGSHIP EVENTS
-===========================
-- Developer Days 2024 — 5K+ registrations, 24 workshops, 15+ speakers (Google, Microsoft, Amazon engineers)
-- TEDx LPU 2024 — 2K+ attendees, 5M+ reach, 9 speakers, Top 10 TEDx in India
-- Tech Summit LPU (Dec 2023) — 800+ participants, winner of campus innovation award 2023
-- Product Hackathon (Oct 2023) — 1K+ hackers, 120+ projects, $10K+ prizes, 3 teams raised pre-seed funding
-
-===========================
-TECH STACK
-===========================
-Languages & Frameworks: Python, JavaScript, React.js, Node.js, TensorFlow, FastAPI
-Cloud & DevOps: AWS, Google Cloud, Docker
-Databases: PostgreSQL
-Tools: Figma, Jira, Postman, ChatGPT
-Product Management: Product Roadmaps, Agile/Scrum, User Research, A/B Testing, Prompt Engineering
-Certifications: Microsoft Technical Associate, NPTEL Soft Skills (IIT Kanpur), Google Cloud Platform
-
-===========================
-ACHIEVEMENTS & RECOGNITIONS
-===========================
-- 6 Patents Filed/Communicated (domains: EdTech, cybersecurity, intelligent systems)
-- 2 Scopus-indexed Research Papers published at international conferences
-- Google Nebular Project Contributor (prompt engineering research)
-- Y Combinator Top 10% (via Mentro)
-- UGC National Policy — represented LPU to UGC Chairman in New Delhi
-- NASSCOM Community Member
-- 9M+ content reach across Techfluence and education content
-- 20K+ students impacted
-- 50+ keynote talks on national and international stages
-- 194K+ LinkedIn followers | 45K+ YouTube subscribers
-
-===========================
-MENTORSHIP OUTCOMES (Student Success)
-===========================
-Students mentored by Souhardya have cracked roles at:
-IBM (Sr. PM & PM Labs), Tata 1mg (Product), Firstcry (Sr. PM), CredenceID US (APM), Apptile (Director Product), HCL Tech (PM), Oracle (SDE), NICE (SDE), Genpact (Consultant), ADP (Sr. Consultant), Toogethr (PM), Microsoft (SDE)
-400+ alumni network | 500+ mock interviews and portfolio reviews
-
-===========================
-CONTACT & LINKS
-===========================
-Email: info.souhardya.bose@gmail.com
-Phone: +91 8582988799
-Location: Punjab, India
-LinkedIn: linkedin.com/in/souhardya (194K+ followers)
-YouTube: 45K+ subscribers
-Book a Meeting: Available via portfolio website
-
-===========================
-PERSONALITY & VISION
-===========================
-Souhardya is passionate about bridging academia and industry, building AI-powered tools for education, and empowering the next generation of builders and product leaders. He is currently focused on scaling TeachGenie, growing Techfluence globally, and building AI-powered futures at LPU.
-
-Guidelines:
-- Be warm, concise, and professional
-- If someone asks how to contact or book Souhardya, share his email: info.souhardya.bose@gmail.com
-- If you don't know something specific, say so honestly and suggest contacting Souhardya directly
-- Never make up facts not listed above`;
+import { useChat } from '@ai-sdk/react';
 
 export default function Chatbot() {
+  const { messages, input, handleInputChange, handleSubmit, isLoading, error, reload } = useChat({
+    api: '/api/chat',
+    initialMessages: [],
+  });
+
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
-  async function handleSubmit(e) {
-    e?.preventDefault();
-    const text = input.trim();
-    if (!text || isLoading) return;
-
-    const userMsg = { id: Date.now(), role: 'user', content: text };
-    const nextMessages = [...messages, userMsg];
-    setMessages(nextMessages);
-    setInput('');
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${OPENROUTER_KEY}`,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': typeof window !== 'undefined' ? window.location.href : '',
-          'X-Title': 'Souhardya Portfolio Chatbot',
-        },
-        body: JSON.stringify({
-          model: MODEL,
-          max_tokens: 400,
-          temperature: 0.7,
-          messages: [
-            { role: 'system', content: SYSTEM_PROMPT },
-            ...nextMessages.map(m => ({ role: m.role, content: m.content })),
-          ],
-        }),
-      });
-
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      const reply = data.choices?.[0]?.message?.content ?? "Sorry, I couldn't get a response.";
-      setMessages(prev => [...prev, { id: Date.now() + 1, role: 'assistant', content: reply }]);
-    } catch (err) {
-      console.error(err);
-      setError(err);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   function retry() {
-    setError(null);
-    const lastUser = [...messages].reverse().find(m => m.role === 'user');
-    if (lastUser) {
-      setMessages(prev => prev.filter(m => m.id !== lastUser.id));
-      setInput(lastUser.content);
-    }
+    reload();
   }
 
   return (
@@ -330,7 +135,7 @@ export default function Chatbot() {
               suppressHydrationWarning
               type="text"
               value={input}
-              onChange={e => setInput(e.target.value)}
+              onChange={handleInputChange}
               placeholder="Ask me anything..."
               className="w-full bg-[#0D1635] text-white text-xs sm:text-[14px] px-4 py-3 sm:py-3.5 pr-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#3D5BF1]/50 border border-white/5 placeholder:text-white/30 transition-all shadow-inner"
               disabled={isLoading}
