@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+/* ── RETHINK SYSTEMS DESIGN SYSTEM ── */
+:root {
+  --background: #060D25;
+  --foreground: #E2E8F0;
+  --blue-grad: linear-gradient(180deg, #3D5BF1 0%, #4179EA 50%, #84ADFF 100%);
+  --card-bg: #0D1635;
+  --card-border: rgba(83,99,177,0.25);
+  --rethink-navy: #060D25;
+  --rethink-card: #0D1635;
+  --rethink-card-deep: #0A1228;
+  --rethink-blue: #3D5BF1;
+  --rethink-blue-mid: #4179EA;
+  --rethink-blue-light: #84ADFF;
+  --rethink-inactive-tab: #202D61;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.02em;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #060D25; }
+::-webkit-scrollbar-thumb { background: #3D5BF1; border-radius: 2px; }
+
+/* ── Keyframe Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(61,91,241,0.3); }
+  50%       { box-shadow: 0 0 60px rgba(61,91,241,0.7); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: scale(0.94) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes borderDance {
+  0%,100% { border-color: rgba(61,91,241,0.4); }
+  50%      { border-color: rgba(132,173,255,0.7); }
+}
+@keyframes cardEntrance {
+  from { opacity: 0; transform: translateY(40px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marqueeReverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+@keyframes rethinkGlow {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+/* ── Utility Classes ── */
+.animate-fadeUp      { animation: fadeUp 0.7s ease forwards; }
+.animate-fadeIn      { animation: fadeIn 0.5s ease forwards; }
+.animate-slideLeft   { animation: slideLeft 0.7s ease forwards; }
+.animate-slideRight  { animation: slideRight 0.7s ease forwards; }
+.animate-float       { animation: floatY 4s ease-in-out infinite; }
+.animate-pulseGlow   { animation: pulseGlow 2.5s ease-in-out infinite; }
+.animate-modalIn     { animation: modalSlideIn 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-borderDance { animation: borderDance 3s ease-in-out infinite; }
+.animate-cardEntrance{ animation: cardEntrance 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-marquee     { animation: marquee 30s linear infinite; }
+.animate-marquee-reverse { animation: marqueeReverse 25s linear infinite; }
+
+/* ── Gradient Text ── */
+.shimmer-text {
+  background: linear-gradient(90deg, #84ADFF, #4179EA, #3D5BF1, #84ADFF);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+.blue-grad-text {
+  background: linear-gradient(135deg, #84ADFF 0%, #4179EA 50%, #3D5BF1 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Rethink-style Card ── */
+.glass-card {
+  background: #0D1635;
+  border: 1px solid rgba(83,99,177,0.25);
+}
+
+/* ── Rethink Card (deep version) ── */
+.rethink-card {
+  background: #0D1635;
+  border: 1px solid rgba(83,99,177,0.2);
+  border-radius: 24px;
+  transition: all 0.3s ease;
+}
+.rethink-card:hover {
+  border-color: rgba(83,99,177,0.45);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(61,91,241,0.1);
+}
+
+/* ── Blue glow ── */
+.blue-glow {
+  box-shadow: 0 0 40px rgba(61,91,241,0.3);
+}
+
+/* ── Rethink gradient button ── */
+.rethink-btn {
+  background: linear-gradient(180deg, #3D5BF1 0%, #4179EA 60%, #84ADFF 100%);
+  color: white;
+  font-weight: 700;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(61,91,241,0.35);
+}
+.rethink-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 35px rgba(61,91,241,0.55);
+}
+
+/* ── Rethink inactive tab button ── */
+.rethink-tab-inactive {
+  background: #202D61;
+  color: rgba(255,255,255,0.7);
+  border: none;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+.rethink-tab-inactive:hover {
+  background: #2A3A7A;
+  color: white;
+}
+
+/* ── Section pill badge ── */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(61,91,241,0.15);
+  border: 1px solid rgba(61,91,241,0.3);
+  color: #84ADFF;
+}
+
+/* ── Rethink Ambient Glow (for section backgrounds) ── */
+.rethink-glow-right {
+  position: absolute;
+  top: 0; right: -100px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(61,91,241,0.12) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+.rethink-glow-left {
+  position: absolute;
+  bottom: 0; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(65,121,234,0.1) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── Marquee mask ── */
+.mask-marquee {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

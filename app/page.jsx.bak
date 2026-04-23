@@ -1,0 +1,1882 @@
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import {
+  Menu, X, Linkedin, Github, Mail, Phone, ChevronDown, Award,
+  BookOpen, Users, Globe, Calendar, MapPin, ExternalLink,
+  ArrowRight, CheckCircle2, Star, Code2, BrainCircuit, Rocket,
+  Send, CalendarDays, User, Sparkles, TrendingUp, Zap, Target,
+  Mic, GraduationCap, Heart, Building2, ShoppingBag, Shield, Cpu,
+  Download, Youtube, Play, Video, Lightbulb, GitBranch, MessageSquare,
+  FileText, FlaskConical, Compass, Wifi
+} from 'lucide-react';
+
+const ROLES = ['Professor @ LPU', 'Product & Community Leader', 'Full-Stack Developer', 'AI Evangelist'];
+
+const STATS = [
+  { value: '6', label: 'Patents Filed' },
+  { value: '2', label: 'Research Papers' },
+  { value: '20K+', label: 'Students Impacted' },
+  { value: '9M+', label: 'Content Reach' },
+];
+
+const EXPERIENCE = [
+  {
+    period: 'Jul 2025 – Present',
+    role: 'Asst. Professor & SCC Head',
+    org: 'Lovely Professional University',
+    color: '#4361EE',
+    img: '/img/gallery/14.jpeg',
+    bullets: [
+      'Led student success for 20,000+ CSE students',
+      'Managed 150+ core members & 20+ clubs',
+      'Organized 50+ tech events & onboarded 30+ CXOs',
+      'Co-built AI platform: TeachGenie',
+    ],
+  },
+  {
+    period: 'Apr 2025 – Jun 2025',
+    role: 'Product & Innovation Associate Intern',
+    org: 'LPU – Corporate Engagement & Growth',
+    color: '#34A853',
+    img: '/img/gallery/15.jpeg',
+    bullets: [
+      'Founded Techfluence (6 editions) & Finfluence',
+      'Achieved 9M+ reach with 30+ global leaders',
+      'Led 250+ students & 30+ staff',
+      'Built event + influencer tech platform',
+    ],
+  },
+  {
+    period: 'Sep 2023 – Jun 2025',
+    role: 'NEP Sarthi Education Reform Officer',
+    org: 'UGC, Govt. of India (Volunteer)',
+    color: '#FBBC05',
+    img: '/img/gallery/17.jpeg',
+    bullets: [
+      'Worked with UGC Chairman on national policy',
+      'Built research frameworks for academia-industry gaps',
+    ],
+  },
+  {
+    period: 'Oct 2022 – Apr 2023',
+    role: 'Full Stack Developer Intern & Community Lead',
+    org: 'Indian Cyber Security Solutions',
+    color: '#F25022',
+    img: '/img/gallery/11.jpeg',
+    bullets: [
+      'Built SAVE-AI — AI vulnerability assessment tool',
+      'Designed backend architecture & tested scalable APIs',
+    ],
+  },
+  {
+    period: 'Feb 2021 – Mar 2023',
+    role: 'Lead Product & Strategy (Volunteer)',
+    org: 'Mentro — Y Combinator Top 10%',
+    color: '#EA4335',
+    img: '/img/gallery/13.jpeg',
+    bullets: [
+      'Scaled platform to 50,000+ downloads',
+      'Enabled 5,000+ mentorship sessions',
+      'Led product strategy & UX improvements',
+    ],
+  },
+];
+
+const TECHFLUENCE = [
+  {
+    edition: 1, date: 'Feb 2023', title: 'Techfluence 1.0 — The Ignition',
+    desc: 'The founding edition that kickstarted a tech community at LPU. Focused on emerging tech trends and student entrepreneurship.',
+    guests: ['Startup Founders', 'LPU Faculty Leaders', 'Local Tech CEOs'],
+    reach: '2,000+', attendees: '500+',
+    img: '/img/carousel/1.jpeg',
+    comments: [
+      { name: 'Priya Sharma', text: 'Best event at LPU! Souhardya sir inspired us to think beyond textbooks 🔥', role: 'CSE Student' },
+      { name: 'Rahul Dev', text: 'The networking session alone was worth it. Met my co-founder here!', role: 'Tech Enthusiast' },
+    ],
+  },
+  {
+    edition: 2, date: 'Jun 2023', title: 'Techfluence 2.0 — The Builder',
+    desc: 'Focused on hands-on product building. Students shipped real MVPs during 24-hour hackathon sessions.',
+    guests: ['Product Managers', 'YC Alumni', 'SaaS Founders'],
+    reach: '1.5M+', attendees: '800+',
+    img: '/img/carousel/2.jpeg',
+    comments: [
+      { name: 'Amit Singh', text: 'Shipped my first product at this hackathon. Life-changing experience! 🚀', role: 'Developer' },
+      { name: 'Neha Gupta', text: 'The PM workshop by Souhardya sir was gold. Got placed at a startup after this!', role: 'MBA Student' },
+    ],
+  },
+  {
+    edition: 3, date: 'Nov 2023', title: 'Techfluence 3.0 — AI Awakening',
+    desc: 'Entire edition dedicated to AI/ML. Live demos, model training workshops, and AI ethics panel discussions.',
+    guests: ['AI Researchers', 'ML Engineers from FAANG', 'EdTech Founders'],
+    reach: '3M+', attendees: '1,200+',
+    img: '/img/carousel/3.jpeg',
+    comments: [
+      { name: 'Karan Mehta', text: 'The AI panel was 🔥. Mind-blowing insights from real practitioners!', role: 'ML Student' },
+      { name: 'Sonia Patel', text: 'Souhardya sir made AI feel accessible. Built my first model here!', role: 'CS Researcher' },
+    ],
+  },
+  {
+    edition: 4, date: 'Apr 2024', title: 'Techfluence 4.0 — The Scale',
+    desc: 'First edition to cross national boundaries. Speakers from 5 countries, 30+ sessions, massive community growth.',
+    guests: ['Global Tech Leaders', 'International Founders', 'VCs'],
+    reach: '5M+', attendees: '2,000+',
+    img: '/img/carousel/4.jpeg',
+    comments: [
+      { name: 'Divya Roy', text: 'Had speakers from Germany & USA! LPU truly went global with Techfluence 🌍', role: 'Organizer Volunteer' },
+      { name: 'Vijay Kumar', text: 'Got mentored by a Google PM. This event changed my career direction!', role: 'Graduate Student' },
+    ],
+  },
+  {
+    edition: 5, date: 'Sep 2024', title: 'Techfluence 5.0 — The Community',
+    desc: 'Student-led innovation showcase. 100+ student projects presented, with top 10 getting seed funding opportunities.',
+    guests: ['Angel Investors', 'NASSCOM Leaders', 'Core Product Leaders'],
+    reach: '7M+', attendees: '3,000+',
+    img: '/img/carousel/5.jpeg',
+    comments: [
+      { name: 'Arjun Nair', text: 'My startup got noticed by an angel investor at Techfluence 5.0! 💰', role: 'Startup Founder' },
+      { name: 'Prerna Das', text: 'The startup pitches were incredible. So much talent at LPU!', role: 'Investor Relations' },
+    ],
+  },
+  {
+    edition: 6, date: 'Mar 2025', title: 'Techfluence 6.0 — The Frontier',
+    desc: 'The biggest edition yet! Full-stack AI product hackathon, policy roundtables, and exclusive mentorship programs with 30+ global leaders.',
+    guests: ['30+ Global Leaders', 'CXOs & Founders', 'Policy Makers'],
+    reach: '9M+', attendees: '5,000+',
+    img: '/img/carousel/6.jpeg',
+    comments: [
+      { name: 'Rohit Sharma', text: 'Techfluence 6.0 was legendary! 9M+ reach proves Souhardya sir\'s vision 👏', role: 'Tech Community Lead' },
+      { name: 'Ananya Bose', text: 'Career-defining event. Got my dream internship offer after the session!', role: 'Final Year Student' },
+    ],
+  },
+];
+
+const VIDEO_TESTIMONIALS = [
+  { name: 'Riya', org: 'OASIS LPU', role: 'Student Experience', img: '/img/gallery/1.jpeg', videoId: 'dQw4w9WgXcQ' },
+  { name: 'Saksham', org: 'OASIS LPU', role: '8 months ago', img: '/img/gallery/2.jpeg', videoId: 'dQw4w9WgXcQ' },
+  { name: 'Sandeep', org: 'OASIS LPU', role: 'Photography', img: '/img/gallery/3.jpeg', videoId: 'dQw4w9WgXcQ' },
+  { name: 'Aayush', org: 'OASIS LPU', role: 'Student organization', img: '/img/gallery/4.jpeg', videoId: 'dQw4w9WgXcQ' },
+  { name: 'Anshu Raj', org: 'OASIS LPU', role: 'Tech Events', img: '/img/gallery/5.jpeg', videoId: 'dQw4w9WgXcQ' },
+  { name: 'Swati', org: 'OASIS LPU', role: 'Placement Journey', img: '/img/gallery/6.jpeg', videoId: 'dQw4w9WgXcQ' },
+  { name: 'Sakshi', org: 'OASIS LPU', role: 'Got placed', img: '/img/gallery/7.jpeg', videoId: 'dQw4w9WgXcQ' },
+  { name: 'Anish Ku', org: 'OASIS LPU', role: 'Student organization', img: '/img/gallery/8.jpeg', videoId: 'dQw4w9WgXcQ' },
+];
+
+const SKILLS_TECH = [
+  { name: 'Python', icon: '🐍', color: '#3B82F6' },
+  { name: 'JavaScript', icon: '⚡', color: '#F59E0B' },
+  { name: 'React.js', icon: '⚛️', color: '#38BDF8' },
+  { name: 'Node.js', icon: '🟢', color: '#4ADE80' },
+  { name: 'TensorFlow', icon: '🧠', color: '#F97316' },
+  { name: 'FastAPI', icon: '🚀', color: '#A78BFA' },
+  { name: 'AWS', icon: '☁️', color: '#FB923C' },
+  { name: 'PostgreSQL', icon: '🐘', color: '#60A5FA' },
+  { name: 'Django', icon: '🎸', color: '#4ADE80' },
+  { name: 'PyTorch', icon: '🔥', color: '#F87171' },
+  { name: 'Docker', icon: '🐳', color: '#38BDF8' },
+  { name: 'Google Cloud', icon: '🌐', color: '#34A853' },
+];
+const SKILLS_PM = [
+  { name: 'Product Roadmaps', icon: '🗺️', color: '#A78BFA' },
+  { name: 'Agile / Scrum', icon: '🔄', color: '#38BDF8' },
+  { name: 'User Research', icon: '🔍', color: '#F59E0B' },
+  { name: 'JTBD Framework', icon: '🎯', color: '#F87171' },
+  { name: 'A/B Testing', icon: '📊', color: '#4ADE80' },
+  { name: 'GTM Strategy', icon: '📣', color: '#FB923C' },
+  { name: 'Prompt Engineering', icon: '✨', color: '#A78BFA' },
+  { name: 'Funnel Analytics', icon: '📈', color: '#38BDF8' },
+];
+const SKILLS_TOOLS = [
+  { name: 'Figma', icon: '🎨', color: '#F87171' },
+  { name: 'Jira', icon: '📋', color: '#60A5FA' },
+  { name: 'Notion', icon: '📝', color: '#E5E7EB' },
+  { name: 'Postman', icon: '📮', color: '#FB923C' },
+  { name: 'Salesforce', icon: '☁️', color: '#38BDF8' },
+  { name: 'Hugging Face', icon: '🤗', color: '#F59E0B' },
+  { name: 'ChatGPT', icon: '🤖', color: '#4ADE80' },
+  { name: 'Miro', icon: '🖊️', color: '#F59E0B' },
+];
+
+const STARTUPS = [
+  {
+    name: 'TeachGenie',
+    tag: 'EdTech · AI Platform',
+    role: 'Co-Founder & Product Lead',
+    desc: 'AI-powered teaching & learning platform co-built at LPU. Automates lesson planning, quiz generation, and student progress analytics using LLMs.',
+    status: 'Active',
+    year: '2024',
+    color: '#7C3AED',
+    bg: 'from-[#7C3AED]/20 to-[#4C1D95]/10',
+    border: 'border-[#7C3AED]/40',
+    metrics: [{ v: '20K+', l: 'Users' }, { v: '95%', l: 'Satisfaction' }, { v: '3x', l: 'Faster Prep' }],
+    img: '/img/gallery/9.jpeg',
+    icon: '🎓',
+  },
+  {
+    name: 'SAVE-AI',
+    tag: 'CyberSec · AI Tool',
+    role: 'Full Stack Developer & Architect',
+    desc: 'Intelligent vulnerability assessment tool built during internship at Indian Cyber Security Solutions. Automates penetration testing workflows using AI.',
+    status: 'Shipped',
+    year: '2023',
+    color: '#E11D48',
+    bg: 'from-[#E11D48]/20 to-[#881337]/10',
+    border: 'border-[#E11D48]/40',
+    metrics: [{ v: '85%', l: 'Accuracy' }, { v: '10x', l: 'Faster Scans' }, { v: '500+', l: 'Tests Run' }],
+    img: '/img/gallery/11.jpeg',
+    icon: '🛡️',
+  },
+  {
+    name: 'Mentro',
+    tag: 'Mentorship · Community',
+    role: 'Lead Product & Strategy',
+    desc: 'Peer-to-peer mentorship platform recognized by Y Combinator (Top 10%). Enabled professionals to share expertise through structured 1:1 sessions.',
+    status: 'YC Backed',
+    year: '2021',
+    color: '#0D9488',
+    bg: 'from-[#0D9488]/20 to-[#115E59]/10',
+    border: 'border-[#0D9488]/40',
+    metrics: [{ v: '50K+', l: 'Downloads' }, { v: '5K+', l: 'Sessions' }, { v: 'Top 10%', l: 'YC' }],
+    img: '/img/gallery/13.jpeg',
+    icon: '🤝',
+  },
+];
+
+const ACHIEVEMENTS = [
+  { icon: '🏆', title: '6 Patents Communicated', desc: 'AI, edtech & cybersecurity domains', color: '#F59E0B', bg: 'from-[#F59E0B]/20 to-[#78350F]/10', img: '/img/gallery/17.jpeg' },
+  { icon: '📄', title: '2 Scopus Research Papers', desc: 'Published at indexed international conferences', color: '#4361EE', bg: 'from-[#4361EE]/20 to-[#1e3a8a]/10', img: '/img/gallery/18.jpeg' },
+  { icon: '✨', title: 'Google Nebular Project', desc: 'Contributed to Google prompt research initiative', color: '#34A853', bg: 'from-[#34A853]/20 to-[#14532d]/10', img: '/img/gallery/19.jpeg' },
+  { icon: '🚀', title: 'Y Combinator Top 10%', desc: 'Recognized top contributor — Mentro platform', color: '#EA4335', bg: 'from-[#EA4335]/20 to-[#7f1d1d]/10', img: '/img/gallery/20.jpeg' },
+  { icon: '🌏', title: 'UGC National Policy', desc: 'Represented LPU before UGC Chairman', color: '#A78BFA', bg: 'from-[#A78BFA]/20 to-[#4c1d95]/10', img: '/img/gallery/6.jpeg' },
+  { icon: '📡', title: '9M+ Content Reach', desc: 'Techfluence series & education content impact', color: '#0D9488', bg: 'from-[#0D9488]/20 to-[#134e4a]/10', img: '/img/gallery/7.jpeg' },
+];
+
+const CERTS = [
+  { name: 'Microsoft Technical Associate', org: 'Microsoft', color: '#0078D4', icon: '🪟', img: '/img/gallery/5.jpeg' },
+  { name: 'NPTEL – Soft Skills', org: 'IIT Kanpur', color: '#FF6B35', icon: '🎓', img: '/img/gallery/8.jpeg' },
+  { name: 'Google Cloud Platform', org: 'Google', color: '#34A853', icon: '☁️', img: '/img/gallery/4.jpeg' },
+];
+
+const TESTIMONIALS = [
+  { name: 'Priya Mehra', role: 'SDE @ Microsoft', text: 'Souhardya sir\'s guidance was transformational. He combines technical depth with product thinking in a way I\'ve never seen before.', platform: 'LinkedIn', img: '/img/gallery/1.jpeg' },
+  { name: 'Arjun Dev', role: 'Founder @ EdTech Startup', text: 'Joined his bootcamp with just an idea. Left with a working product and 100 beta users. Absolutely life-changing!', platform: 'Community', img: '/img/gallery/2.jpeg' },
+  { name: 'Sneha Roy', role: 'PM @ Swiggy', text: 'The AI product workshops he runs are unlike anything in a textbook. Real skills, real applications, real outcomes.', platform: 'LinkedIn', img: '/img/gallery/3.jpeg' },
+  { name: 'Rahul Gupta', role: 'CSE Student, LPU', text: 'Best professor I\'ve ever had. He doesn\'t just teach — he makes you build, ship and learn from real failure.', platform: 'Google Review', img: '/img/gallery/4.jpeg' },
+];
+
+const SOCIAL_COMMENTS = [
+  {
+    tag: 'Lovely Comments',
+    tagColor: '#E11D48',
+    text: 'The session was incredibly insightful! The breakdown of product frameworks and the emphasis on versioning really helped me understand how to better manage scope. The growth model discussion was very helpful. Thank you so much!',
+    name: 'Priya Mehra',
+    role: 'PM @ HCL Tech',
+    img: '/img/gallery/1.jpeg',
+  },
+  {
+    tag: 'Jobs Cracked',
+    tagColor: '#059669',
+    text: 'I absolutely loved today\'s session ❤️ It was a delight listening and understanding the thought process. Key insights I\'m taking away: maintain a learning mindset and value soft skills as much as technical skills. Feeling motivated to keep growing on my journey!',
+    name: 'Aditya Zade',
+    role: 'SDE @ NICE',
+    img: '/img/gallery/2.jpeg',
+  },
+  {
+    tag: 'Jobs Cracked',
+    tagColor: '#059669',
+    text: 'Hey, I got the AI PM role at IBM — thanks to your sessions. The program helped me build confidently. Showcased that AI product in interviews. Also cleared another role but passed. Got two more PM interview calls just from the content I shared. Your program gave way more value ❤️',
+    name: 'Kevin Thomas',
+    role: 'Sr. AI PM @ IBM',
+    img: '/img/gallery/3.jpeg',
+  },
+  {
+    tag: 'Lovely Comments',
+    tagColor: '#E11D48',
+    text: 'The LLM session was very interesting. It was great to learn how LLMs work, especially concepts like precision, recall, and accuracy. I had been reading about these for some time but still had doubts, and today\'s session clarified most of them. The CPU, GPU, and TPU concepts were very insightful.',
+    name: 'Anupam Rajlani',
+    role: 'Consultant @ Genpact',
+    img: '/img/gallery/4.jpeg',
+  },
+  {
+    tag: 'Jobs Cracked',
+    tagColor: '#059669',
+    text: 'Hello, very excited to share that I got a very nice hike in appraisal in the last review, along with additional ESOPs 🙏 Thank you so much for all the sessions!',
+    name: 'Saif Sadiq',
+    role: 'Director Product @ Apptile',
+    img: '/img/gallery/5.jpeg',
+  },
+  {
+    tag: 'Lovely Comments',
+    tagColor: '#E11D48',
+    text: 'Really cool to see how agents are made and how we can get them to work. I\'m excited to explore more use cases and see which tasks I can outsource to an agent. Loved the session.',
+    name: 'Swar Joshi',
+    role: 'PM @ Toogethr',
+    img: '/img/gallery/6.jpeg',
+  },
+  {
+    tag: 'Jobs Cracked',
+    tagColor: '#059669',
+    text: 'Two in two days! I have cracked a PM role in TATA 1mg. There were 3000 applicants and across 5 rounds I got lucky. I am extremely grateful and thank you so much.',
+    name: 'Tusshar Gupta',
+    role: 'Product @ Tata1MG',
+    img: '/img/gallery/7.jpeg',
+  },
+  {
+    tag: 'Jobs Cracked',
+    tagColor: '#059669',
+    text: 'Just wanted to share with you — promoted to senior product manager position from PM in firstcry 🥳',
+    name: 'Pallavi Dhamapurkar',
+    role: 'Sr. PM @ Firstcry',
+    img: '/img/gallery/8.jpeg',
+  },
+  {
+    tag: 'Lovely Comments',
+    tagColor: '#E11D48',
+    text: 'Rethink hands-on implementation dekhkar maza aa gaya. I\'m inspired to finally try and build some flows I\'ve been thinking about for a while. Loved the session!',
+    name: 'Avi Giri',
+    role: 'SDE @ Oracle',
+    img: '/img/gallery/1.jpeg',
+  },
+  {
+    tag: 'Jobs Cracked',
+    tagColor: '#059669',
+    text: 'Hey! I\'ve been fighting the battle of breaking into core product management role & finally cracked an APM at a known ID verification & Cybersec company based out of US. Extremely pleased to inform you!',
+    name: 'Aprameya Jamadagni',
+    role: 'PM @ CredencelD',
+    img: '/img/gallery/2.jpeg',
+  },
+  {
+    tag: 'Jobs Cracked',
+    tagColor: '#059669',
+    text: 'Hey! Just wanted to inform you that I\'ve been offered the role of Product Manager from IBM software labs. Wanted to thank you and the whole community for the support 🤩',
+    name: 'Bhishm Juneja',
+    role: 'PM @ IBM Labs',
+    img: '/img/gallery/3.jpeg',
+  },
+  {
+    tag: 'Lovely Comments',
+    tagColor: '#E11D48',
+    text: 'Thanks for touching upon so many things we often see as subjective and making them actionable. The plan now is to practice consistently until these become core habits.',
+    name: 'Kaipesh Benare',
+    role: 'Sr. Consultant @ ADP',
+    img: '/img/gallery/4.jpeg',
+  },
+];
+
+const PODCASTS = [
+  {
+    title: "The AI Revolution in Education",
+    desc: "Discussing how LLMs are transforming classroom experiences and student success metrics.",
+    duration: "42 min",
+    date: "March 2025",
+    img: "/img/gallery/14.jpeg",
+    link: "https://spotify.com",
+    tags: ["AI", "EdTech"]
+  },
+  {
+    title: "Scaling Student Communities to 20K+",
+    desc: "Lessons learned from building one of India's largest tech student organizations at LPU.",
+    duration: "35 min",
+    date: "Jan 2025",
+    img: "/img/gallery/15.jpeg",
+    link: "https://spotify.com",
+    tags: ["Leadership", "Community"]
+  },
+  {
+    title: "Product Mindset for Engineers",
+    desc: "Why every developer needs to think like a product manager in the era of automated coding.",
+    duration: "48 min",
+    date: "Nov 2024",
+    img: "/img/gallery/16.jpeg",
+    link: "https://spotify.com",
+    tags: ["Product", "Career"]
+  }
+];
+
+export default function Home() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeTab, setActiveTab] = useState('Theory Sessions');
+  const [activeVideo, setActiveVideo] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
+  const [showAllComments, setShowAllComments] = useState(false);
+  const [meetingForm, setMeetingForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    date: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [activeEdition, setActiveEdition] = useState(0);
+
+  const handleMeetingFormChange = (e) => {
+    setMeetingForm({ ...meetingForm, [e.target.name]: e.target.value });
+  };
+
+  const handleMeetingSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // TODO: Send to backend
+    // await fetch('/api/schedule-meeting', { method: 'POST', body: JSON.stringify(meetingForm) });
+    await new Promise(resolve => setTimeout(resolve, 1500)); // simulate API call
+    setIsSubmitting(false);
+    setSubmitSuccess(true);
+    setTimeout(() => {
+      setIsMeetingModalOpen(false);
+      setSubmitSuccess(false);
+      setMeetingForm({ name: '', email: '', phone: '', date: '', message: '' });
+    }, 2000);
+  };
+
+  // Prevent scrolling when mobile menu or meeting modal is open
+  useEffect(() => {
+    if (isMobileMenuOpen || isMeetingModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isMobileMenuOpen, isMeetingModalOpen]);
+
+  const programTabs = [
+    'Theory Sessions', 'AI Building Lab Sessions', 'Group Discussion Sessions', 'Recorded Sessions', 'Master Sessions'
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  return (
+    <div className="min-h-screen font-sans antialiased relative overflow-hidden" style={{ background: '#000B21', color: '#E2E8F0' }}>
+
+      {/* 
+        ========================================
+        NORMAL NAVBAR (Initial State)
+        ========================================
+      */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 py-5 px-6 md:px-10 max-w-[1400px] mx-auto flex justify-between items-center transition-all duration-300 ${isScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        <div className="font-bold tracking-tighter text-2xl flex flex-col leading-none">
+          <span className="text-white">Subhardaya</span>
+          <span className="font-serif italic text-sm text-white/60">Bose.</span>
+        </div>
+
+        {/* Desktop Links */}
+        <div className="hidden lg:flex gap-6 text-[13px] font-medium text-white/80">
+          <Link href="/content" className="hover:text-white transition-colors relative group">Content<div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></div></Link>
+          <a href="#services" className="hover:text-white transition-colors relative group">Services<div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></div></a>
+          <Link href="/patents" className="hover:text-white transition-colors relative group">Patents<div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></div></Link>
+          <Link href="/research" className="hover:text-white transition-colors relative group">Research Papers<div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></div></Link>
+          <Link href="/experience" className="hover:text-white transition-colors relative group">Experience<div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full"></div></Link>
+        </div>
+
+        {/* Desktop CTA */}
+        <div className="hidden lg:flex items-center gap-3">
+          <a href="/resume.pdf" download className="flex items-center gap-2 border border-white/30 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-white/10 transition-all">
+            <Download size={14} /> Resume
+          </a>
+          <button onClick={() => setIsMeetingModalOpen(true)} className="px-6 py-2.5 rounded-full text-sm font-bold hover:scale-105 transition-all text-white" style={{ background: 'linear-gradient(135deg,#3D5BF1,#84ADFF)', boxShadow: '0 0 24px rgba(61,91,241,0.45)' }}>
+            Schedule a Meeting
+          </button>
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <button
+          className="lg:hidden p-2 text-white hover:bg-white/10 rounded-full transition-colors z-[110]"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </nav>
+
+      {/* 
+        ========================================
+        FLOATING NAVBAR (Scrolled State)
+        ========================================
+      */}
+      <div className={`fixed top-6 inset-x-0 z-[100] flex justify-center px-4 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}`}>
+        <nav className={`rounded-full px-4 py-3 flex items-center justify-between shadow-[0_20px_40px_rgba(0,0,0,0.6)] border border-white/10 w-full max-w-[1100px] backdrop-blur-md transition-all ${isScrolled ? 'pointer-events-auto' : 'pointer-events-none'}`} style={{ background: 'rgba(0,11,33,0.85)', color: '#E2E8F0' }}>
+          <div className="font-bold tracking-tighter text-xl flex flex-col leading-none pl-4 pr-6">
+            <span>Subhardaya</span>
+            <span className="font-serif italic text-[11px] text-[#EAEAE5]/60">Bose.</span>
+          </div>
+
+          <div className="hidden lg:flex gap-6 text-[13px] font-medium text-[#EAEAE5]/80">
+            <Link href="/content" className="hover:text-white transition-colors">Content</Link>
+            <a href="#services" className="hover:text-white transition-colors">Services</a>
+            <Link href="/patents" className="hover:text-white transition-colors">Patents</Link>
+            <Link href="/research" className="hover:text-white transition-colors">Research Papers</Link>
+            <Link href="/experience" className="hover:text-white transition-colors">Experience</Link>
+          </div>
+
+          <div className="hidden lg:flex items-center gap-3">
+            <a href="/resume.pdf" download className="flex border border-white/20 text-[#EAEAE5] px-4 py-2 rounded-full text-sm font-semibold hover:bg-white/10 transition-all">
+              Resume
+            </a>
+            <button onClick={() => setIsMeetingModalOpen(true)} className="px-6 py-2.5 rounded-full text-sm font-bold hover:scale-105 transition-all text-white md:ml-2" style={{ background: 'linear-gradient(135deg,#3D5BF1,#84ADFF)', boxShadow: '0 0 20px rgba(61,91,241,0.4)' }}>
+              Schedule Meeting
+            </button>
+          </div>
+
+          {/* Mobile Menu Toggle for floating nav */}
+          <button
+            className="lg:hidden p-2 text-[#EAEAE5] hover:bg-white/10 rounded-full transition-colors"
+            onClick={() => setIsMobileMenuOpen(true)}
+          >
+            <Menu size={24} />
+          </button>
+        </nav>
+      </div>
+
+      {/* 
+        ========================================
+        MOBILE MENU OVERLAY
+        ========================================
+      */}
+      <div className={`fixed inset-0 bg-[#EAEAE5] z-[105] flex flex-col justify-center items-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+
+        {/* Close Button styling matched to the dark floating navbar theme for contrast if needed, or keeping it dark on light */}
+        <button
+          className="absolute top-6 right-6 p-2 text-[#1A1A1A] bg-[#1A1A1A]/5 hover:bg-[#1A1A1A]/10 rounded-full transition-colors"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <X size={28} />
+        </button>
+
+        <div className="flex flex-col gap-6 text-center text-3xl font-black tracking-tight text-[#1A1A1A] w-full px-6">
+          <Link href="/content" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4361EE] hover:translate-x-2 transition-all">Content</Link>
+          <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4361EE] hover:translate-x-2 transition-all">Services</a>
+          <Link href="/patents" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4361EE] hover:translate-x-2 transition-all">Patents</Link>
+          <Link href="/research" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4361EE] hover:translate-x-2 transition-all">Research Papers</Link>
+          <Link href="/experience" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4361EE] hover:translate-x-2 transition-all">Experience</Link>
+        </div>
+
+        <div className="flex flex-col gap-4 mt-12 w-full px-12 max-w-sm">
+          <a href="/resume.pdf" download className="flex items-center justify-center gap-2 border-2 border-[#1A1A1A] text-[#1A1A1A] px-6 py-4 rounded-full text-lg font-bold hover:bg-[#1A1A1A] hover:text-white transition-all w-full">
+            <Download size={20} /> Download Resume
+          </a>
+          <button onClick={() => { setIsMobileMenuOpen(false); setIsMeetingModalOpen(true); }} className="bg-[#1A1A1A] text-white px-6 py-4 rounded-full text-lg font-bold shadow-[0_10px_30px_rgba(26,26,26,0.3)] hover:scale-105 transition-all w-full">
+            Schedule a Meeting
+          </button>
+        </div>
+      </div>
+
+      {/* 
+        ========================================
+        SCHEDULE A MEETING MODAL
+        ========================================
+      */}
+      {isMeetingModalOpen && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => { setIsMeetingModalOpen(false); setSubmitSuccess(false); }}
+          />
+
+          {/* Modal Card */}
+          <div className="relative bg-[#EAEAE5] rounded-[2rem] w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-[0_30px_80px_rgba(0,0,0,0.5)] border border-white/20 animate-[modalSlideIn_0.4s_ease-out]">
+
+            {/* Top Accent Bar */}
+            <div className="h-1.5 w-full bg-gradient-to-r from-[#1A1A1A] via-[#4361EE] to-[#1A1A1A] rounded-t-[2rem]" />
+
+            {/* Close Button */}
+            <button
+              onClick={() => { setIsMeetingModalOpen(false); setSubmitSuccess(false); }}
+              className="absolute top-5 right-5 p-2 bg-[#1A1A1A]/5 hover:bg-[#1A1A1A]/10 rounded-full transition-colors text-[#1A1A1A]"
+            >
+              <X size={20} />
+            </button>
+
+            <div className="p-8 pt-6">
+              {/* Header */}
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-[#1A1A1A] flex items-center justify-center">
+                    <Calendar size={18} className="text-[#EAEAE5]" />
+                  </div>
+                  <h3 className="text-2xl font-black tracking-tight text-[#1A1A1A]">Schedule a Meeting</h3>
+                </div>
+                <p className="text-gray-600 text-sm leading-relaxed">Fill in your details and I'll get back to you within 24 hours to confirm the meeting.</p>
+              </div>
+
+              {submitSuccess ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                    <CheckCircle2 size={32} className="text-green-600" />
+                  </div>
+                  <h4 className="text-xl font-bold text-[#1A1A1A] mb-2">Request Sent!</h4>
+                  <p className="text-gray-600 text-sm">Thank you! I'll reach out to confirm your meeting shortly.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleMeetingSubmit} className="flex flex-col gap-5">
+                  {/* Name */}
+                  <div className="relative">
+                    <label className="text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-1.5 block">Full Name</label>
+                    <div className="relative">
+                      <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                      <input
+                        type="text"
+                        name="name"
+                        value={meetingForm.name}
+                        onChange={handleMeetingFormChange}
+                        required
+                        placeholder="Your full name"
+                        className="w-full bg-white border border-black/10 rounded-xl py-3 pl-11 pr-4 text-sm text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/20 focus:border-[#1A1A1A]/30 transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Email */}
+                  <div className="relative">
+                    <label className="text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-1.5 block">Email Address</label>
+                    <div className="relative">
+                      <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                      <input
+                        type="email"
+                        name="email"
+                        value={meetingForm.email}
+                        onChange={handleMeetingFormChange}
+                        required
+                        placeholder="you@example.com"
+                        className="w-full bg-white border border-black/10 rounded-xl py-3 pl-11 pr-4 text-sm text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/20 focus:border-[#1A1A1A]/30 transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Phone */}
+                  <div className="relative">
+                    <label className="text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-1.5 block">Phone Number</label>
+                    <div className="relative">
+                      <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={meetingForm.phone}
+                        onChange={handleMeetingFormChange}
+                        required
+                        placeholder="+91 98765 43210"
+                        className="w-full bg-white border border-black/10 rounded-xl py-3 pl-11 pr-4 text-sm text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/20 focus:border-[#1A1A1A]/30 transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Preferred Date */}
+                  <div className="relative">
+                    <label className="text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-1.5 block">Preferred Date</label>
+                    <div className="relative">
+                      <CalendarDays size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                      <input
+                        type="date"
+                        name="date"
+                        value={meetingForm.date}
+                        onChange={handleMeetingFormChange}
+                        required
+                        className="w-full bg-white border border-black/10 rounded-xl py-3 pl-11 pr-4 text-sm text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/20 focus:border-[#1A1A1A]/30 transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Message */}
+                  <div className="relative">
+                    <label className="text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-1.5 block">Message / Topic</label>
+                    <div className="relative">
+                      <MessageSquare size={16} className="absolute left-4 top-4 text-gray-400" />
+                      <textarea
+                        name="message"
+                        value={meetingForm.message}
+                        onChange={handleMeetingFormChange}
+                        rows={3}
+                        placeholder="What would you like to discuss?"
+                        className="w-full bg-white border border-black/10 rounded-xl py-3 pl-11 pr-4 text-sm text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]/20 focus:border-[#1A1A1A]/30 transition-all resize-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="flex items-center justify-center gap-2 bg-[#1A1A1A] text-white py-4 rounded-xl text-sm font-bold shadow-[0_10px_30px_rgba(26,26,26,0.3)] hover:shadow-[0_15px_40px_rgba(26,26,26,0.4)] hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                  >
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    ) : (
+                      <><Send size={16} /> Send Meeting Request</>
+                    )}
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style jsx>{`
+        @keyframes modalSlideIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95) translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+      `}</style>
+
+      {/* 
+        ========================================
+        MAIN HERO SECTION — Full-Screen Video Background
+        ========================================
+      */}
+      <section className="relative w-full min-h-screen flex flex-col justify-center items-center overflow-hidden" style={{ borderBottomLeftRadius: '50px', borderBottomRightRadius: '50px' }}>
+
+        {/* ── Looping Background Video ── */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          src="/homepage.mp4"
+        />
+
+        {/* ── Dark cinematic gradient overlay ── */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+
+        {/* ── Subtle vignette corners ── */}
+        <div className="absolute inset-0 z-10 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%)' }} />
+
+        {/* ── Hero Content ── */}
+        <main className="relative z-20 w-full max-w-[1400px] mx-auto px-6 md:px-10 pt-32 pb-24 flex flex-col items-center text-center">
+
+          {/* Live badge — Rethink-style blue gradient pill */}
+          <div className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 mb-8 text-white text-sm font-semibold" style={{ background: 'linear-gradient(180deg,rgba(0,0,0,0.25) 2%,rgba(18,62,151,0.35) 49%,rgba(100,137,212,0.25) 100%)', boxShadow: '0 1px 2px rgba(0,42,254,0.12), inset 0 0 10px rgba(255,255,255,0.12)', border: '1px solid rgba(132,173,255,0.2)' }}>
+            <span className="w-2 h-2 rounded-full bg-[#84ADFF] animate-pulse"></span>
+            Professor · Builder · Community Leader
+          </div>
+
+          {/* Headline — mixed weight Rethink style */}
+          <h1 className="leading-[1.05] tracking-tight mb-6 text-white drop-shadow-2xl max-w-5xl" style={{ fontSize: 'clamp(2.5rem,5vw,5rem)', fontWeight: 300 }}>
+            Souhardya <span style={{ fontWeight: 700 }}>Bose</span>
+            <span className="block mt-1" style={{ fontWeight: 300 }}>Professor. Builder. <span className="blue-grad-text" style={{ fontWeight: 700 }}>Leader.</span></span>
+          </h1>
+
+          {/* Subheadline */}
+          <p className="text-[17px] md:text-xl text-white/70 mb-12 max-w-2xl leading-relaxed">
+            Assistant Professor &amp; Head of Student Success at LPU. Founder of Techfluence — 6 editions, 9M+ reach, 30+ global leaders. Building AI-powered futures.
+          </p>
+
+          {/* CTA Buttons — Rethink pill style */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-14">
+            <a href="/resume.pdf" download className="flex items-center justify-center gap-2 border border-white/25 bg-white/8 backdrop-blur-sm text-white px-8 py-4 rounded-full text-[15px] font-semibold hover:bg-white/15 transition-all hover:-translate-y-0.5">
+              <Download size={18} /> Download Resume
+            </a>
+            <button onClick={() => setIsMeetingModalOpen(true)} className="flex items-center justify-center gap-2 px-10 py-4 rounded-full text-[15px] font-bold text-white hover:-translate-y-0.5 transition-all" style={{ background: 'linear-gradient(135deg,#3D5BF1,#4179EA)', boxShadow: '0 0 40px rgba(61,91,241,0.5)' }}>
+              Schedule a Meeting <ArrowRight size={17} />
+            </button>
+          </div>
+
+          {/* Student avatars + count */}
+          <div className="flex items-center gap-4">
+            <div className="flex -space-x-3">
+              <img src="/img/gallery/1.jpeg" alt="Student" className="w-10 h-10 rounded-full border-2 border-white/50 object-cover" />
+              <img src="/img/gallery/2.jpeg" alt="Student" className="w-10 h-10 rounded-full border-2 border-white/50 object-cover" />
+              <img src="/img/gallery/3.jpeg" alt="Student" className="w-10 h-10 rounded-full border-2 border-white/50 object-cover" />
+              <img src="/img/gallery/4.jpeg" alt="Student" className="w-10 h-10 rounded-full border-2 border-white/50 object-cover" />
+              <div className="w-10 h-10 rounded-full border-2 border-white/50 bg-white/20 backdrop-blur-sm text-white flex justify-center items-center text-xs font-bold">+</div>
+            </div>
+            <span className="text-[15px] font-bold tracking-tight text-white/90">1.6K+ students applied</span>
+          </div>
+
+          {/* Floating Glass Stats Row */}
+          <div className="mt-16 flex flex-wrap justify-center gap-4">
+            {/* YouTube */}
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-3 rounded-full flex items-center gap-3 shadow-lg hover:bg-white/20 transition-all">
+              <div className="bg-[#FF0000] w-8 h-8 rounded-full flex items-center justify-center shrink-0">
+                <Youtube size={16} className="text-white fill-current" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-white leading-none">45k+</span>
+                <span className="text-[10px] text-white/60 uppercase tracking-widest font-semibold">YouTube Subs</span>
+              </div>
+            </div>
+
+            {/* LinkedIn */}
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-3 rounded-full flex items-center gap-3 shadow-lg hover:bg-white/20 transition-all">
+              <div className="bg-[#0A66C2] w-8 h-8 rounded-full flex items-center justify-center shrink-0">
+                <Linkedin size={16} className="text-white fill-current" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-white leading-none">194k+</span>
+                <span className="text-[10px] text-white/60 uppercase tracking-widest font-semibold">LinkedIn Followers</span>
+              </div>
+            </div>
+
+            {/* Name plate */}
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-3 rounded-full flex items-center gap-3 shadow-lg hover:bg-white/20 transition-all">
+              <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-white/30">
+                <img src="/img/gallery/6.jpeg" alt="Avatar" className="w-full h-full object-cover" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-white leading-none">Subhardaya Bose</span>
+                <span className="text-[10px] text-white/60 uppercase tracking-widest font-semibold">Program Director</span>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        {/* ── Recognitions marquee strip at bottom ── */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 py-4 mask-marquee overflow-hidden" style={{ background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(8px)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="flex gap-10 animate-marquee whitespace-nowrap" style={{ width: 'max-content' }}>
+            {['🎓 LPU — Lovely Professional University', '🧪 Google Nebular Contributor', '🏆 Y Combinator Top 10%', '🏛️ UGC — Govt. of India', '📡 9M+ Community Reach', '📋 6 Patents Filed', '🌐 NASSCOM Community', '🎓 LPU — Lovely Professional University', '🧪 Google Nebular Contributor', '🏆 Y Combinator Top 10%', '🏛️ UGC — Govt. of India', '📡 9M+ Community Reach', '📋 6 Patents Filed', '🌐 NASSCOM Community'].map((label, i) => (
+              <span key={i} className="text-white/50 text-xs font-semibold uppercase tracking-widest">{label}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          SECTION 6 — TECHFLUENCE (Blue Theme) — Detailed Season View
+      ═══════════════════════════════ */}
+      <section id="techfluence" className="w-full py-28 px-6 md:px-10" style={{ background: '#050E24' }}>
+        <div className="max-w-[1200px] mx-auto">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="section-badge mb-6 mx-auto bg-white/5 border-white/10 text-white/70"><Globe size={12} /> Flagship Series</div>
+            <h2 className="text-4xl md:text-6xl tracking-tight text-white mb-4" style={{ fontWeight: 300 }}>Techfluence <span style={{ fontWeight: 700 }} className="text-white/70">6 Seasons</span></h2>
+            <p className="text-white/50 max-w-xl mx-auto text-base">India&apos;s most impactful university-led tech community event series — 9M+ cumulative reach, 30+ global leaders.</p>
+          </div>
+
+          {/* ── Season Tabs ── */}
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            {TECHFLUENCE.map((ev, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveEdition(i)}
+                className={`px-5 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 ${
+                  activeEdition === i
+                    ? 'text-black bg-white scale-105 border-transparent'
+                    : 'bg-transparent text-white/50 border-white/15 hover:border-white/30 hover:text-white/80'
+                }`}
+              >
+                Season {ev.edition}
+              </button>
+            ))}
+          </div>
+
+          {/* ── Active Season Detail View ── */}
+          {(() => {
+            const ev = TECHFLUENCE[activeEdition];
+            return (
+              <div key={activeEdition} className="animate-fadeUp">
+                {/* Hero Banner for the Edition */}
+                <div className="relative rounded-[2rem] overflow-hidden mb-10 border border-white/10">
+                  <div className="aspect-[21/9] md:aspect-[3/1] relative overflow-hidden bg-black">
+                    <img src={ev.img} alt={ev.title} className="w-full h-full object-cover opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0B1221] via-[#0B1221]/80 to-transparent" />
+                    <div className="absolute inset-0 flex flex-col justify-center p-8 md:p-14">
+                      <div className="flex gap-2 mb-4">
+                        <span className="bg-white/10 text-white/90 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-white/10">Season {ev.edition}</span>
+                        <span className="bg-white/5 backdrop-blur text-white/60 text-[10px] font-bold px-3 py-1 rounded-full border border-white/10">{ev.date}</span>
+                      </div>
+                      <h3 className="text-3xl md:text-5xl font-black text-white leading-tight mb-3">{ev.title}</h3>
+                      <p className="text-white/60 max-w-xl text-sm md:text-base leading-relaxed">{ev.desc}</p>
+                      <div className="flex gap-6 mt-6">
+                        <div>
+                          <div className="text-2xl md:text-3xl font-black text-white">{ev.reach}</div>
+                          <div className="text-[9px] text-white/40 uppercase tracking-widest font-bold">Reach</div>
+                        </div>
+                        <div>
+                          <div className="text-2xl md:text-3xl font-black text-white">{ev.attendees}</div>
+                          <div className="text-[9px] text-white/40 uppercase tracking-widest font-bold">Attendees</div>
+                        </div>
+                        <div>
+                          <div className="text-2xl md:text-3xl font-black text-white">{ev.guests.length}+</div>
+                          <div className="text-[9px] text-white/40 uppercase tracking-widest font-bold">Speaker Groups</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Detail Grid: Guests + Souhardya + Comments */}
+                {/* Detail Grid: Guests + Souhardya + Comments */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+
+                  {/* Guest Speakers Card */}
+                  <div className="rounded-[2rem] border border-white/10 overflow-hidden hover:-translate-y-1 transition-all duration-300 bg-white/5">
+                    <div className="p-7">
+                      <div className="flex items-center gap-3 mb-5">
+                        <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/10">
+                          <Users size={18} className="text-white/80" />
+                        </div>
+                        <h4 className="text-lg font-black text-white">Guest Speakers</h4>
+                      </div>
+                      <div className="space-y-3">
+                        {ev.guests.map((g, j) => (
+                          <div key={j} className="flex items-center gap-3 hover:translate-x-1 transition-transform">
+                            <div className="w-10 h-10 rounded-full overflow-hidden border border-white/15 shrink-0">
+                              <img src={`/img/gallery/${(j + 1 + activeEdition * 3) % 20 + 1}.jpeg`} alt={g} className="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                              <div className="text-white text-sm font-bold">{g}</div>
+                              <div className="text-white/30 text-[10px] uppercase tracking-widest">Season {ev.edition} Speaker</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Souhardya's Contribution Card */}
+                  <div className="rounded-[2rem] border border-white/10 overflow-hidden hover:-translate-y-1 transition-all duration-300 bg-white/5">
+                    <div className="h-40 relative overflow-hidden">
+                      <img src={`/img/gallery/${activeEdition + 6}.jpeg`} alt="Souhardya Bose" className="w-full h-full object-cover opacity-60" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1221] to-transparent" />
+                      <div className="absolute bottom-4 left-6 flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20">
+                          <img src="/img/gallery/6.jpeg" alt="Souhardya" className="w-full h-full object-cover" />
+                        </div>
+                        <div>
+                          <div className="text-white font-black text-sm">Souhardya Bose</div>
+                          <div className="text-white/50 text-[10px] font-bold uppercase tracking-widest">Founder & Director</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h4 className="text-base font-black text-white mb-3">Contributions</h4>
+                      <ul className="space-y-2">
+                        {[
+                          'Curated & invited all keynote speakers',
+                          'Led end-to-end event strategy & execution',
+                          'Delivered opening keynote address',
+                          'Mentored student organizers & volunteers',
+                        ].map((c, j) => (
+                          <li key={j} className="flex items-start gap-2 text-[13px] text-white/60">
+                            <CheckCircle2 size={14} className="text-white/40 shrink-0 mt-0.5" />
+                            {c}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Social Media Comments Card */}
+                  <div className="rounded-[2rem] border border-white/10 overflow-hidden hover:-translate-y-1 transition-all duration-300 bg-white/5">
+                    <div className="p-7">
+                      <div className="flex items-center gap-3 mb-5">
+                        <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/10">
+                          <MessageSquare size={18} className="text-white/80" />
+                        </div>
+                        <h4 className="text-lg font-black text-white">What People Said</h4>
+                      </div>
+                      <div className="space-y-4">
+                        {ev.comments.map((c, j) => (
+                          <div key={j} className="rounded-xl p-4 border border-white/8 hover:border-white/15 transition-all bg-white/5">
+                            <div className="flex items-center gap-1 mb-2">
+                              {[...Array(5)].map((_, k) => <Star key={k} size={10} className="fill-white/40 text-white/40" />)}
+                            </div>
+                            <p className="text-white/70 text-[13px] italic leading-relaxed mb-3">&ldquo;{c.text}&rdquo;</p>
+                            <div className="flex items-center gap-2">
+                              <div className="w-7 h-7 rounded-full overflow-hidden border border-white/15">
+                                <img src={`/img/gallery/${(j + 1 + activeEdition * 2) % 20 + 1}.jpeg`} alt={c.name} className="w-full h-full object-cover" />
+                              </div>
+                              <div>
+                                <div className="text-white text-xs font-bold">{c.name}</div>
+                                <div className="text-white/30 text-[10px]">{c.role}</div>
+                              </div>
+                              <Linkedin size={12} className="text-white/30 ml-auto" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Event Photo Gallery Strip */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[1, 2, 3, 4].map(offset => {
+                    const imgIdx = ((activeEdition * 4 + offset) % 10) + 1;
+                    return (
+                      <div key={offset} className="aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 group">
+                        <img src={`/img/carousel/${imgIdx}.jpeg`} alt={`Techfluence Season ${TECHFLUENCE[activeEdition].edition} - Photo ${offset}`} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          SECTION 4 — STARTUPS 
+      ═══════════════════════════════ */}
+      <section id="startups" className="w-full py-32 px-6 md:px-10 relative overflow-hidden" style={{ background: '#050E24' }}>
+        <div className="max-w-[1300px] mx-auto relative z-10">
+          
+          {/* Header - Matching screenshot exactly */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 animate-fadeUp gap-6">
+            <h2 className="text-4xl md:text-[44px] font-medium tracking-tight text-white/90">
+              Startups <span className="text-white/60">I&apos;ve Built in the AI era?</span>
+            </h2>
+            <a href="#experience" className="px-6 py-2.5 rounded-full text-[15px] font-bold text-white transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] whitespace-nowrap" style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)' }}>
+              View All Ventures
+            </a>
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {STARTUPS.map((s, i) => (
+              <div 
+                key={i} 
+                className="group relative rounded-[2rem] border overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] animate-fadeUp flex flex-col h-[520px]" 
+                style={{ 
+                  animationDelay: `${i * 0.15}s`, 
+                  animationFillMode: 'both',
+                  background: '#0B1221',
+                  borderColor: 'rgba(255,255,255,0.06)'
+                }}
+              >
+                {/* Specific top-right dark radial glow matching screenshot */}
+                <div 
+                  className="absolute top-0 right-0 w-[120%] h-[120%] pointer-events-none opacity-80" 
+                  style={{ background: `radial-gradient(circle at 100% 0%, ${s.color}20 0%, transparent 60%)` }} 
+                />
+
+                {/* Content Section (Top Half) */}
+                <div className="relative z-20 px-8 pt-10 flex-1">
+                  <h3 className="text-[22px] font-semibold text-white/95 leading-tight tracking-tight mb-4 group-hover:text-white transition-colors duration-300">
+                    {s.name}
+                  </h3>
+                  
+                  <p className="text-[15px] text-white/70 italic leading-relaxed" style={{ fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif' }}>
+                    &quot;{s.desc}&quot;
+                  </p>
+
+                  <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-2 text-[13px] text-white/50 tracking-wide">
+                      <span className="w-4 h-px bg-white/30 block"></span>
+                      {s.role}
+                    </div>
+                    <div className="font-bold text-sm tracking-wide flex items-center gap-1.5" style={{ color: s.color }}>
+                      <span className="text-[16px] leading-none mb-0.5">{s.icon}</span> {s.status}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Graphic / Image Area */}
+                <div className="relative h-56 w-full mt-auto">
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#0B1221] via-[#0B1221]/40 to-transparent z-10" />
+                  <img 
+                    src={s.img} 
+                    alt={s.name} 
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
+                  />
+                  
+                  {/* Floating Stats simulating UI elements from screenshot */}
+                  <div className="absolute inset-0 z-20 flex items-end justify-center pb-8 px-6 gap-2 opacity-90">
+                    {s.metrics.map((m, j) => (
+                      <div 
+                        key={j} 
+                        className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex-1 flex flex-col items-center justify-center shadow-lg group-hover:-translate-y-1 transition-transform"
+                        style={{ transitionDelay: `${j * 50}ms` }}
+                      >
+                        <div className="text-[17px] font-black text-white leading-tight">{m.v}</div>
+                        <div className="text-[9px] text-white/40 uppercase tracking-widest font-semibold mt-1">{m.l}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          SECTION 2 — ABOUT  (Rethink-style dark navy + glassmorphism)
+      ═══════════════════════════════ */}
+      <section id="about" className="w-full py-28 px-6 md:px-10 relative overflow-hidden" style={{ background: '#050E24' }}>
+
+        {/* Blue radial glow blobs — Rethink style */}
+        <div className="absolute top-[-20%] right-[-10%] w-[700px] h-[700px] rounded-full pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(61,91,241,0.12) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(65,121,234,0.08) 0%, transparent 70%)' }} />
+
+        <div className="max-w-[1280px] mx-auto relative z-10 pt-12 pb-20">
+
+          {/* ── Section label row ── */}
+          <div className="flex items-center gap-4 mb-14 animate-fadeUp">
+            <div className="section-badge">
+              <User size={12} /> About Me
+            </div>
+            <span className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(61,91,241,0.3), transparent)' }} />
+            <span className="text-xs font-bold text-white/30 uppercase tracking-widest hidden md:block">LPU · Class of 2025</span>
+          </div>
+
+          {/* ── MAIN 3-column grid: LEFT photos | CENTRE bio | RIGHT stats ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr_1fr] gap-8 items-start">
+
+            {/* LEFT: Masonry photo stack */}
+            <div className="flex flex-col gap-4 animate-slideLeft" style={{ animationFillMode: 'both' }}>
+
+              {/* Badge strip at top — glassmorphism */}
+              <div className="flex flex-wrap gap-2">
+                <div className="glass-card px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 animate-float text-white">
+                  <MapPin size={12} className="text-[#84ADFF]" /> Punjab, India
+                </div>
+                <div className="glass-card px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 animate-float text-white" style={{ animationDelay: '0.8s' }}>
+                  <Linkedin size={12} className="text-[#0A66C2]" /> 194K+ LinkedIn
+                </div>
+                <div className="glass-card px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 animate-float text-white" style={{ animationDelay: '1.6s' }}>
+                  <Youtube size={12} className="text-[#FF4444]" /> 45K+ YouTube
+                </div>
+              </div>
+
+              {/* Portrait image — tall */}
+              <div className="w-full rounded-[1.8rem] overflow-hidden group" style={{ aspectRatio: '4/5', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 20px 60px rgba(0,11,33,0.6)' }}>
+                <img src="/img/gallery/9.jpeg" alt="Souhardya Bose" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              </div>
+
+              {/* Two square images side by side */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="aspect-square rounded-[1.5rem] overflow-hidden group" style={{ border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <img src="/img/gallery/10.jpeg" alt="Teaching" className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700" />
+                </div>
+                <div className="aspect-square rounded-[1.5rem] overflow-hidden group" style={{ border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <img src="/img/gallery/16.jpeg" alt="Speaking" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                </div>
+              </div>
+
+              {/* Wide fourth image — fills remaining space */}
+              <div className="w-full rounded-[1.5rem] overflow-hidden group" style={{ aspectRatio: '16/7', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <img src="/img/gallery/11.jpeg" alt="Keynote" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              </div>
+
+              {/* Quick fact tag at bottom */}
+              <div className="bg-gradient-to-r from-[#4361EE] to-[#7C3AED] text-white rounded-2xl px-5 py-4 flex items-center gap-3 shadow-lg">
+                <Mic size={18} className="shrink-0" />
+                <div>
+                  <div className="font-black text-sm">50+ Keynote Talks</div>
+                  <div className="text-white/60 text-xs">National & International stages</div>
+                </div>
+              </div>
+            </div>
+
+            {/* CENTRE: Bio + highlights */}
+            <div className="animate-fadeUp" style={{ animationFillMode: 'both', animationDelay: '0.1s' }}>
+              <h2 className="text-4xl md:text-5xl tracking-tight text-white mb-4 leading-[1.1]" style={{ fontWeight: 300 }}>
+                Professor. <span style={{ fontWeight: 700 }}>Builder.</span><br />
+                <span className="blue-grad-text" style={{ fontWeight: 700 }}>Community Leader.</span>
+              </h2>
+              <p className="text-white/60 text-[15px] leading-relaxed mb-8">
+                I&apos;m <span className="font-semibold text-white">Souhardya Bose</span> — Assistant Professor &amp; Head of Student Success at Lovely Professional University. I bridge academia &amp; industry through AI-powered education, hands-on product building, and massive impact events touching <span className="font-semibold text-[#84ADFF]">9M+ people</span>.
+              </p>
+
+              {/* Highlights — staggered */}
+              <div className="flex flex-col gap-3 mb-8">
+                {[
+                  { icon: <GraduationCap size={17} className="text-[#4361EE]" />, text: 'M.Tech CS (CGPA 7.6) & B.Tech CS (CGPA 7.5) — LPU', color: '#4361EE' },
+                  { icon: <BrainCircuit size={17} className="text-[#7C3AED]" />,  text: 'Co-built TeachGenie — AI teaching platform at LPU',    color: '#7C3AED' },
+                  { icon: <Building2  size={17} className="text-[#10B981]" />, text: 'NEP Sarthi Reform Officer, UGC — Govt. of India',       color: '#10B981' },
+                  { icon: <Rocket     size={17} className="text-[#F59E0B]" />, text: 'Mentro — 50K+ downloads, Y Combinator Top 10%',        color: '#F59E0B' },
+                  { icon: <Globe      size={17} className="text-[#4361EE]" />, text: 'Techfluence — 6 editions, 9M+ reach, 30+ leaders',      color: '#4361EE' },
+                  { icon: <Sparkles   size={17} className="text-[#7C3AED]" />, text: 'Google Nebular Contributor · 6 Patents Filed',           color: '#7C3AED' },
+                ].map((b, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 glass-card rounded-2xl px-4 py-3.5 hover:-translate-y-0.5 transition-all duration-300 group animate-fadeUp"
+                    style={{ animationDelay: `${0.15 + i * 0.08}s`, animationFillMode: 'both' }}
+                  >
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform" style={{ background: b.color + '15' }}>
+                      {b.icon}
+                    </div>
+                    <p className="text-white/70 text-sm font-medium">{b.text}</p>
+                    <ArrowRight size={14} className="text-white/20 ml-auto shrink-0 group-hover:text-white/60 group-hover:translate-x-0.5 transition-all" />
+                  </div>
+                ))}
+              </div>
+
+              {/* Dual CTA */}
+              <div className="flex flex-wrap gap-3">
+                <a href="/resume.pdf" download className="flex items-center gap-2 bg-[#1A1A1A] text-white px-6 py-3 rounded-full text-sm font-bold shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all">
+                  <Download size={15} /> Download Resume
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="flex items-center gap-2 bg-white text-[#1A1A1A] px-6 py-3 rounded-full text-sm font-bold border border-black/10 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all">
+                  <Linkedin size={15} className="text-[#0A66C2]" /> LinkedIn
+                </a>
+              </div>
+            </div>
+
+            {/* RIGHT: Stats + quick identity cards */}
+            <div className="flex flex-col gap-4 animate-slideRight" style={{ animationFillMode: 'both', animationDelay: '0.2s' }}>
+
+              {/* 4 stat cards */}
+              {STATS.map((s, i) => {
+                const colors = ['#4361EE', '#7C3AED', '#10B981', '#F59E0B'];
+                const icons  = [
+                  <Lightbulb size={20} key={0} style={{ color: colors[0] }} />,
+                  <BookOpen  size={20} key={1} style={{ color: colors[1] }} />,
+                  <GraduationCap size={20} key={2} style={{ color: colors[2] }} />,
+                  <TrendingUp size={20} key={3} style={{ color: colors[3] }} />,
+                ];
+                return (
+                  <div
+                    key={s.label}
+                    className="glass-card rounded-2xl p-5 hover:-translate-y-1 transition-all duration-300 flex items-center gap-4 group animate-fadeUp"
+                    style={{ animationDelay: `${0.2 + i * 0.1}s`, animationFillMode: 'both' }}
+                  >
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform" style={{ background: colors[i] + '15' }}>
+                      {icons[i]}
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-white">{s.value}</div>
+                      <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">{s.label}</div>
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Role identity pills */}
+              <div className="glass-card rounded-2xl p-5">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3">I&apos;m also a</p>
+                <div className="flex flex-wrap gap-2">
+                  {['🎤 Speaker', '🧑‍🏫 Teacher', '📲 Influencer', '🚀 Founder', '🏛️ Policy Advisor', '🤖 AI Builder'].map(tag => (
+                    <span key={tag} className="glass-card text-white/70 text-xs font-semibold px-3 py-1.5 rounded-full hover:text-white transition-all cursor-default">{tag}</span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Education block */}
+              <div className="glass-card rounded-2xl p-5">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3">Education</p>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#4361EE]/20 flex items-center justify-center shrink-0 mt-0.5">
+                      <GraduationCap size={15} className="text-[#4361EE]" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-sm">M.Tech — CSE</div>
+                      <div className="text-white/40 text-xs">LPU · 2023–25 · CGPA 7.6</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#7C3AED]/20 flex items-center justify-center shrink-0 mt-0.5">
+                      <BookOpen size={15} className="text-[#7C3AED]" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-sm">B.Tech — CSE</div>
+                      <div className="text-white/40 text-xs">LPU · 2019–23 · CGPA 7.5</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+
+
+
+      {/* ═══════════════════════════════
+          SECTION 3 — EXPERIENCE (Dark Timeline)
+      ═══════════════════════════════ */}
+      {/* Top transition — smooth dark blend */}
+      <div className="w-full h-32 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #030816, #050E24)' }} />
+
+      <section id="experience" className="w-full pb-28 px-6 md:px-10 relative overflow-hidden" style={{ background: '#050E24' }}>
+        
+        {/* Subtle dot-grid for structure */}
+        <div
+          className="absolute inset-0 opacity-[0.03] z-0 pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+        />
+
+        <div className="max-w-[1200px] mx-auto relative z-10">
+          <div className="flex flex-col items-center text-center gap-4 mb-24 animate-fadeUp">
+            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-2">
+              <Zap size={14} className="text-white/60" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/60">Career History</span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-[1.02] mb-4">
+              Work <span className="text-white/80">Experience</span>
+            </h2>
+            <p className="text-white/40 max-w-xl mx-auto text-base">A journey through my professional roles, delivering impact and building scalable real-world products.</p>
+          </div>
+          
+          <div className="relative before:absolute before:inset-0 before:ml-3 md:before:mx-auto md:before:translate-x-0 before:h-full before:w-px before:bg-gradient-to-b before:from-transparent before:via-white/10 before:to-transparent">
+            {EXPERIENCE.map((e, i) => (
+              <div key={i} className={`relative flex items-center mb-16 last:mb-0 animate-fadeUp ${i % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`} style={{ animationDelay: `${i * 0.1}s`, animationFillMode: 'both' }}>
+                
+                {/* Timeline Node - pushed tighter left on mobile */}
+                <div className="absolute left-3 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full border-[3px] md:border-4 border-[#050E24] shadow-[0_0_20px_rgba(0,0,0,0.5)] z-20 group-hover:scale-[1.2] transition-transform duration-500 bg-white/10">
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-white opacity-80" />
+                </div>
+                
+                {/* Experience Card - Wider on mobile, reduced border radius to avoid squishing content */}
+                <div className="w-[calc(100%-2.5rem)] ml-auto md:ml-0 md:w-[calc(50%-4rem)] rounded-2xl md:rounded-[2rem] border border-white/5 bg-[#000B21] transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:border-white/15 relative overflow-hidden group">
+                  
+                  {/* Subtle top glow matching brand */}
+                  <div className="absolute top-0 left-0 w-full h-[1px] opacity-40 group-hover:opacity-100 transition-opacity z-30" style={{ background: `linear-gradient(90deg,transparent,${e.color},transparent)` }} />
+                  
+                  {/* Embedded Rich Image Header using the "Clear Area" */}
+                  <div className="h-40 md:h-48 w-full relative overflow-hidden border-b border-white/5">
+                    {/* Removed heavy blackout overlay so images are super clear */}
+                    <img src={e.img} alt={e.role} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                    {/* Keep only a smooth gradient at the bottom so it fades into the card */}
+                    <div className="absolute inset-0 z-20" style={{ background: 'linear-gradient(to bottom, transparent 30%, #000B21 100%)' }} />
+                  </div>
+
+                  <div className="p-5 md:p-8 relative z-30 -mt-6 md:-mt-8">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 md:mb-5">
+                      <div className="inline-flex px-3 py-1.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest border border-white/10 bg-[#000B21] text-white/70 items-center gap-1.5 shadow-lg w-fit">
+                        <CalendarDays size={12} className="opacity-50" />
+                        {e.period}
+                      </div>
+                    </div>
+                    
+                    <h3 className="text-lg md:text-2xl font-black text-white mb-2 tracking-tight group-hover:text-white/90 transition-colors" style={{ letterSpacing: '-0.02em' }}>{e.role}</h3>
+                    <div className="text-[12px] md:text-[13px] font-bold mb-4 md:mb-6 flex items-center gap-2 text-white/40 uppercase tracking-widest">
+                      <span className="text-base md:text-lg opacity-60 mix-blend-luminosity shrink-0">{['🏫', '💡', '🏛️', '🛡️', '🤝'][i]}</span> 
+                      <span className="truncate whitespace-normal">{e.org}</span>
+                    </div>
+                    
+                    <ul className="space-y-3">
+                      {e.bullets.map((b, j) => (
+                        <li key={j} className="flex items-start gap-3 md:gap-4 text-[13px] md:text-[14px] text-white/50 text-left md:text-justify leading-snug md:leading-relaxed">
+                          <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-white/20 group-hover:text-white/60 transition-colors" />
+                          <span className="font-medium">{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA Box */}
+          <div className="mt-28 bg-[#000B21] text-white rounded-[2.5rem] p-10 md:p-12 relative overflow-hidden border border-white/10 group hover:border-white/20 transition-all">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-60 rounded-[2.5rem] pointer-events-none" />
+            <div className="absolute top-[-40%] left-[-5%] w-[300px] h-[300px] rounded-full opacity-10 blur-[80px] pointer-events-none bg-white" />
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+              <div>
+                <div className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-3">Open to opportunities</div>
+                <h3 className="text-3xl md:text-4xl font-black tracking-tight leading-tight">
+                  Want to collaborate<br />or discuss a role?
+                </h3>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 shrink-0">
+                <a href="/resume.pdf" download className="flex items-center justify-center gap-2 bg-white text-[#0B1221] px-8 py-4 rounded-full text-sm font-black hover:scale-105 transition-all">
+                  <Download size={16} /> Download Resume
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+      
+      {/* Bottom transition — smooth dark blend */}
+      <div className="w-full h-32 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #050E24, #050E24)' }} />
+
+      {/* ═══════════════════════════════
+          SECTION 5 — SPEAKER / TEACHER / INFLUENCER (Gold Theme)
+      ═══════════════════════════════ */}
+      <section className="w-full py-24 px-6 md:px-10" style={{ background: '#000B21' }}>
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-16">
+            <div className="section-badge mb-6 mx-auto"><Mic size={12} /> Multi-Faceted Leader</div>
+            <h2 className="text-4xl md:text-5xl text-white mb-4" style={{ fontWeight: 300 }}>Beyond the <span style={{ fontWeight: 700 }}>Classroom</span></h2>
+            <p className="text-white/40 max-w-lg mx-auto">Not just a professor — a motivational speaker, content influencer, and serial entrepreneur.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { icon: '🎤', title: 'Motivational Speaker', desc: '50+ events · 30+ CXOs & global leaders hosted · Keynote at LPU, national conferences', img: '/img/gallery/16.jpeg' },
+              { icon: '📚', title: 'Educator & Professor', desc: '20,000+ CSE students · TeachGenie AI platform · NEP Sarthi UGC Officer · IIT-level curriculum design', img: '/img/gallery/15.jpeg' },
+              { icon: '📱', title: 'Content Influencer', desc: '194K+ LinkedIn · 45K+ YouTube · 9M+ Techfluence reach · AI & EdTech thought leadership', img: '/img/gallery/14.jpeg' },
+            ].map((c, i) => (
+              <div key={i} className="relative rounded-[2rem] overflow-hidden group border border-white/10 hover:border-white/20 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500 bg-white/5">
+                <div className="h-56 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-black/20 z-10" />
+                  <img src={c.img} alt={c.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                  <div className="absolute inset-0 z-20" style={{ background: `linear-gradient(to bottom,transparent 40%,#0B1221 100%)` }} />
+                </div>
+                <div className="p-7 relative z-30 flex flex-col items-start bg-[#0B1221]">
+                  <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-2xl mb-5 group-hover:scale-110 transition-transform">
+                    {c.icon}
+                  </div>
+                  <h3 className="text-[20px] font-semibold text-white/90 mb-3">{c.title}</h3>
+                  <p className="text-[14px] text-white/50 leading-relaxed max-w-[90%]">{c.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          SECTION 7 — SKILLS (Teal-Blue Theme)
+      ═══════════════════════════════ */}
+      <section id="skills" className="w-full py-24 px-6 md:px-10" style={{ background: '#000B21' }}>
+        <div className="max-w-[1200px] mx-auto">
+          <div className="mb-16">
+            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-6">
+              <Code2 size={12} className="text-white/60" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/60">Expertise</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white">Skills & Tech Stack</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { title: 'Languages & Frameworks', icon: <Code2 size={20} />, skills: SKILLS_TECH, img: '/img/gallery/12.jpeg' },
+              { title: 'Product Management', icon: <BrainCircuit size={20} />, skills: SKILLS_PM, img: '/img/gallery/15.jpeg' },
+              { title: 'Tools & Platforms', icon: <Cpu size={20} />, skills: SKILLS_TOOLS, img: '/img/gallery/8.jpeg' },
+            ].map((cat, i) => (
+              <div key={i} className="rounded-[2rem] overflow-hidden border border-white/10 hover:border-white/20 hover:-translate-y-2 transition-all duration-500 group bg-white/5">
+                {/* Category image header */}
+                <div className="h-36 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-black/40 z-10" />
+                  <img src={cat.img} alt={cat.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700" />
+                  <div className="absolute inset-0 z-20" style={{ background: `linear-gradient(to bottom,transparent,#0B1221)` }} />
+                  <div className="absolute bottom-4 left-6 flex items-center gap-3 z-30">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/10 border border-white/10 text-white shadow-lg">
+                      {cat.icon}
+                    </div>
+                    <h3 className="text-lg font-black text-white">{cat.title}</h3>
+                  </div>
+                </div>
+                <div className="p-6 relative z-30 bg-[#0B1221]">
+                  <div className="flex flex-wrap gap-2">
+                    {cat.skills.map((s, j) => (
+                      <span key={j} className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all hover:scale-105 hover:-translate-y-0.5 cursor-default border-white/10 text-white/80 bg-white/5 shadow-sm">
+                        <span className="text-sm opacity-70">{s.icon}</span>{s.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          SECTION 8 — KEY ACHIEVEMENT (Green Theme)
+      ═══════════════════════════════ */}
+      <section className="w-full py-24 px-6 md:px-10" style={{ background: '#050E24' }}>
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-6">
+              <Zap size={12} className="text-white/60" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/60">Key Project</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-4">AI Cancer Detection Framework</h2>
+            <p className="text-white/50 max-w-2xl mx-auto">An intelligent web framework for gastrointestinal cancer detection using deep learning.</p>
+          </div>
+
+          <div className="rounded-[2rem] p-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center border border-white/10 bg-white/5 hover:border-white/20 transition-all">
+            <div>
+              <h3 className="text-2xl font-black text-white mb-6">What I Built</h3>
+              <ul className="space-y-4">
+                {[
+                  'DenseNet CNN trained on 9,000+ medical images',
+                  'Real-time gastrointestinal cancer detection system',
+                  'React.js frontend + FastAPI backend architecture',
+                  'Model deployed via Hugging Face + Render',
+                  'Automated PDF report generation for clinical use',
+                  'Cross-team collaboration: ML, data & UI teams',
+                ].map((pt, i) => (
+                  <li key={i} className="flex items-start gap-3 hover:translate-x-1 transition-transform">
+                    <CheckCircle2 size={18} className="text-white/40 shrink-0 mt-0.5" />
+                    <span className="text-white/70 text-sm">{pt}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-2 mt-8">
+                {['React.js', 'FastAPI', 'Python', 'TensorFlow', 'Hugging Face', 'Render'].map(t => (
+                  <span key={t} className="bg-white/5 border border-white/15 text-white/80 text-xs font-bold px-3 py-1.5 rounded-full hover:scale-105 transition-transform">{t}</span>
+                ))}
+              </div>
+            </div>
+            <div className="aspect-video rounded-2xl overflow-hidden border border-white/10 relative group">
+              <img src="/img/gallery/12.jpeg" alt="AI Cancer Detection" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1221] to-transparent flex items-end p-6">
+                <div>
+                  <div className="bg-white/10 border border-white/10 text-white/90 text-xs font-black px-3 py-1 rounded-full mb-2 inline-block">LIVE PROJECT</div>
+                  <p className="text-white font-bold">Gastrointestinal Cancer Detection AI</p>
+                  <p className="text-white/50 text-xs">Deployed · Hugging Face + Render</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          SECTION 9 — ACHIEVEMENTS & CERTS 
+      ═══════════════════════════════ */}
+      {/* ═══════════════════════════════
+          SECTION 9 — ACHIEVEMENTS & CERTS 
+      ═══════════════════════════════ */}
+      <section className="w-full py-28 px-6 md:px-10 relative overflow-hidden" style={{ background: '#000B21' }}>
+        
+        {/* Beautiful Deep Professional Background Gradient Mesh */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at top right, rgba(67, 97, 238, 0.08), transparent 60%), radial-gradient(ellipse at bottom left, rgba(16, 185, 129, 0.05), transparent 60%)' }} />
+        <div className="absolute top-0 left-[20%] w-[600px] h-[600px] rounded-full pointer-events-none opacity-20 blur-[130px]" style={{ background: 'rgba(67, 97, 238, 0.25)' }} />
+        <div className="absolute bottom-[-10%] right-[10%] w-[500px] h-[500px] rounded-full pointer-events-none opacity-20 blur-[120px]" style={{ background: 'rgba(124, 58, 237, 0.15)' }} />
+
+        <div className="max-w-[1200px] mx-auto relative z-10">
+          <div className="mb-16">
+            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-6 shadow-[0_0_20px_rgba(255,255,255,0.02)]">
+              <Award size={12} className="text-white/60" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/60">Recognition</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white drop-shadow-sm">Achievements & Certifications</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            {ACHIEVEMENTS.map((a, i) => (
+              <div key={i} className="group relative rounded-[2rem] overflow-hidden border border-white/5 bg-[#050E24]/60 backdrop-blur-xl hover:-translate-y-2 hover:border-white/15 hover:bg-[#050E24]/80 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(67,97,238,0.15)] flex flex-col">
+                <div className="h-44 md:h-52 relative overflow-hidden">
+                  <img src={a.img} alt={a.title} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                  <div className="absolute inset-0 z-20" style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(5,14,36,0.95) 100%)' }} />
+                  
+                  {/* Subtle Top-Right Glow */}
+                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 blur-3xl rounded-full z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                </div>
+                <div className="p-6 md:p-7 pt-2 relative z-30 flex-1 flex flex-col justify-end">
+                  <div className="mb-4">
+                     <span className="bg-white/10 text-white/80 border border-white/10 text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest w-fit">Milestone</span>
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-3" style={{ letterSpacing: '-0.02em' }}>{a.title}</h3>
+                  <p className="text-white/40 text-[13px] leading-relaxed text-left md:text-justify">{a.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div>
+            <h3 className="text-xl font-black text-white mb-6 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center">
+                <GraduationCap size={16} className="text-white/80" /> 
+              </div>
+              Certifications
+            </h3>
+            
+            {/* Justified Grid to perfectly match the 3-columns of achievements */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {CERTS.map((c, i) => (
+                <div key={i} className="group rounded-[2rem] overflow-hidden border border-white/5 bg-[#050E24]/50 backdrop-blur-md hover:bg-white/10 hover:border-white/15 transition-all duration-300 p-5 md:p-6 flex flex-row items-center gap-4 md:gap-5 hover:shadow-[0_10px_30px_rgba(67,97,238,0.1)]">
+                  <div className="w-16 h-16 shrink-0 rounded-xl overflow-hidden border border-white/10 relative shadow-lg">
+                     <img src={c.img} alt={c.name} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-white text-[14px] md:text-[15px] mb-1" style={{ letterSpacing: '-0.01em' }}>{c.name}</h4>
+                    <p className="text-white/40 text-[11px] md:text-[12px] uppercase tracking-widest font-bold">{c.org}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          SECTION 10 — TESTIMONIALS (LIGHT THEME)
+      ═══════════════════════════════ */}
+      <section className="w-full py-28 px-6 md:px-10 overflow-hidden relative" style={{ background: '#EAEAE5' }}>
+        
+        {/* Subtle Background Pattern matching Patents page */}
+        <div
+          className="absolute inset-0 opacity-[0.04] z-0 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #1A1A1A 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
+          }}
+        />
+
+        <div className="max-w-[1200px] mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 border border-white shadow-sm mb-6 text-[10px] font-bold tracking-widest text-[#1A1A1A] uppercase mx-auto backdrop-blur-md">
+              <Star size={12} className="text-[#F59E0B] fill-[#F59E0B]" /> Student Testimonials
+            </div>
+            <h2 className="text-4xl md:text-5xl text-[#1A1A1A] mb-3" style={{ fontWeight: 300 }}>What Students <span style={{ fontWeight: 700 }}>Say About Me</span></h2>
+            <p className="text-gray-500 font-medium max-w-lg mx-auto">Real words and incredible experiences from the students I've had the privilege to mentor.</p>
+          </div>
+
+          {/* Auto-Scrolling Video Shorts Marquee */}
+          <div className="mb-28 -mx-6 md:-mx-10 w-[calc(100%+3rem)] md:w-[calc(100%+5rem)] overflow-hidden mask-marquee">
+            <div className="flex w-max animate-marquee hover:[animation-play-state:paused] py-4">
+              {[...VIDEO_TESTIMONIALS, ...VIDEO_TESTIMONIALS].map((v, i) => (
+                <div key={i} onClick={() => setActiveVideo(v.videoId)} className="block relative w-60 md:w-72 h-[22rem] md:h-[26rem] mx-3 md:mx-4 rounded-[2rem] overflow-hidden shrink-0 group border border-black/5 bg-[#1A1A1A] cursor-pointer hover:border-black/20 hover:-translate-y-3 transition-all duration-500 shadow-[0_15px_40px_rgba(0,0,0,0.15)]">
+                  <img src={v.img} alt={v.name} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
+                  
+                  {/* Professional Glare & Shadow underlays */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/90 via-transparent to-[#1A1A1A]/60 pointer-events-none" />
+
+                  {/* Animated YouTube Shorts Play Button (Center) */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                    <div className="bg-[#FF0000] text-white p-4 rounded-[1rem] flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.5)] transform group-hover:scale-110 transition-transform duration-500 hover:bg-red-600 cursor-pointer">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Top Bar with Profile Info */}
+                  <div className="absolute top-0 left-0 w-full p-5 flex items-center gap-3 z-10 transition-transform duration-500 group-hover:-translate-y-2">
+                    <div className="w-8 md:w-10 h-8 md:h-10 rounded-full bg-white/20 border border-white/30 flex items-center justify-center backdrop-blur-md shrink-0 overflow-hidden shadow-lg">
+                       <span className="font-extrabold text-white text-[10px] md:text-sm">{v.name.charAt(0)}</span>
+                    </div>
+                    <div className="flex flex-col drop-shadow-xl" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+                      <span className="text-white font-bold text-sm md:text-base leading-tight">{v.name}</span>
+                      <span className="text-white/80 text-[10px] uppercase tracking-wider font-semibold">{v.org}</span>
+                    </div>
+                  </div>
+
+                  {/* Bottom Bar with Headline */}
+                  <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end drop-shadow-xl z-10 transition-transform duration-500 group-hover:translate-y-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+                     <h3 className="text-white font-black text-xl md:text-2xl leading-tight border-b-2 border-transparent group-hover:border-white/30 inline-block transition-colors">{v.role}</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {TESTIMONIALS.map((t, i) => (
+              <div key={i} className="rounded-[2rem] p-8 md:p-10 border hover:-translate-y-2 transition-all duration-500 bg-white border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] group relative overflow-hidden">
+                <div className="absolute -right-8 -top-8 w-32 h-32 bg-[#4361EE]/5 rounded-full blur-2xl pointer-events-none group-hover:scale-150 transition-transform duration-700" />
+                
+                <div className="flex items-center gap-1.5 mb-6 relative z-10">
+                  {[...Array(5)].map((_, j) => <Star key={j} size={14} className="fill-[#F59E0B] text-[#F59E0B]" />)}
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-2">{t.platform}</span>
+                </div>
+                
+                <p className="text-gray-600 leading-relaxed italic mb-8 text-[15px] group-hover:text-[#1A1A1A] transition-colors relative z-10">&ldquo;{t.text}&rdquo;</p>
+                
+                <div className="flex items-center gap-4 relative z-10">
+                  <img src={t.img} alt={t.name} className="w-12 h-12 rounded-full object-cover border-[3px] border-white shadow-md group-hover:scale-110 transition-transform" />
+                  <div>
+                    <div className="text-[#1A1A1A] font-black text-[15px]">{t.name}</div>
+                    <div className="text-gray-500 text-xs font-medium uppercase tracking-widest mt-0.5">{t.role}</div>
+                  </div>
+                  <Linkedin size={20} className="text-[#0A66C2] ml-auto opacity-70 group-hover:opacity-100 transition-opacity drop-shadow-sm" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* ═══════════════════════════════
+          SECTION 10b — SOCIAL COMMENTS (Masonry Grid)
+      ═══════════════════════════════ */}
+      <section className="w-full py-28 px-6 md:px-10 relative overflow-hidden" style={{ background: '#000B21' }}>
+        <div
+          className="absolute inset-0 opacity-[0.03] z-0 pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}
+        />
+        <div className="max-w-[1200px] mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 shadow-sm mb-6 text-[10px] font-bold tracking-widest text-white/60 uppercase mx-auto">
+              <MessageSquare size={12} className="text-white/60" /> Real Feedback
+            </div>
+            <h2 className="text-4xl md:text-5xl text-white mb-3" style={{ fontWeight: 300 }}>
+              What People <span style={{ fontWeight: 700 }}>Are Saying</span>
+            </h2>
+            <p className="text-white/40 font-medium max-w-lg mx-auto">
+              Genuine comments from professionals, students, and community members across programs.
+            </p>
+          </div>
+
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
+            {(showAllComments ? SOCIAL_COMMENTS : SOCIAL_COMMENTS.slice(0, 6)).map((c, i) => (
+              <div
+                key={i}
+                className="break-inside-avoid rounded-[1.6rem] border border-white/10 p-6 hover:-translate-y-1 hover:border-white/25 transition-all duration-300 group"
+                style={{ background: 'rgba(255,255,255,0.04)' }}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span
+                    className="text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full"
+                    style={{ background: c.tagColor + '22', color: c.tagColor, border: `1px solid ${c.tagColor}40` }}
+                  >
+                    {c.tag}
+                  </span>
+                  <div className="flex items-center gap-0.5 ml-auto">
+                    {[...Array(5)].map((_, k) => <Star key={k} size={9} className="fill-white/30 text-white/30" />)}
+                  </div>
+                </div>
+                <p className="text-white/65 text-[13.5px] leading-relaxed mb-4 italic">&ldquo;{c.text}&rdquo;</p>
+                <div className="flex items-center gap-3">
+                  <img src={c.img} alt={c.name} className="w-8 h-8 rounded-full object-cover border border-white/15 shrink-0" />
+                  <div>
+                    <div className="text-white text-xs font-bold">{c.name}</div>
+                    <div className="text-white/35 text-[10px]">{c.role}</div>
+                  </div>
+                  <Linkedin size={12} className="text-white/25 ml-auto group-hover:text-[#0A66C2] transition-colors" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {SOCIAL_COMMENTS.length > 6 && (
+            <div className="flex justify-center mt-12">
+              <button
+                onClick={() => setShowAllComments(!showAllComments)}
+                className="flex items-center gap-2 px-8 py-3.5 rounded-full border border-white/15 bg-white/5 text-white/70 text-sm font-semibold hover:bg-white/10 hover:text-white hover:border-white/30 transition-all hover:-translate-y-0.5"
+              >
+                {showAllComments ? 'Show Less' : `Show All ${SOCIAL_COMMENTS.length} Comments`}
+                <ChevronDown size={16} className={`transition-transform ${showAllComments ? 'rotate-180' : ''}`} />
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+
+      {/* ═══════════════════════════════
+          SECTION 11b — PODCASTS
+      ═══════════════════════════════ */}
+      <section className="w-full py-24 px-6 md:px-10" style={{ background: '#050E24' }}>
+        <div className="max-w-[1200px] mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-5">
+                <Mic size={12} className="text-white/60" />
+                <span className="text-[10px] font-bold uppercase tracking-widest text-white/60">Podcast & Talks</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white">
+                Listen & <span className="text-white/60">Learn</span>
+              </h2>
+            </div>
+            <p className="text-white/40 max-w-sm text-sm leading-relaxed">
+              Deep-dive conversations on AI, education, product thinking, and building communities that scale.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {PODCASTS.map((p, i) => (
+              <a
+                key={i}
+                href={p.link}
+                target="_blank"
+                rel="noreferrer"
+                className="group rounded-[2rem] overflow-hidden border border-white/8 hover:border-white/20 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500 flex flex-col"
+                style={{ background: 'rgba(255,255,255,0.04)' }}
+              >
+                <div className="h-48 relative overflow-hidden">
+                  <img src={p.img} alt={p.title} className="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050E24] via-transparent to-transparent" />
+                  <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md border border-white/10 rounded-full px-3 py-1 text-[10px] font-bold text-white/80 uppercase tracking-widest">
+                    {p.duration}
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-14 h-14 bg-white/15 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center shadow-lg">
+                      <Play size={22} className="text-white fill-white ml-1" />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {p.tags.map((t, j) => (
+                      <span key={j} className="text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-white/10 text-white/50" style={{ background: 'rgba(255,255,255,0.06)' }}>{t}</span>
+                    ))}
+                  </div>
+                  <h3 className="text-[17px] font-black text-white mb-2 leading-tight group-hover:text-white/90 transition-colors">{p.title}</h3>
+                  <p className="text-white/40 text-[13px] leading-relaxed flex-1">{p.desc}</p>
+                  <div className="flex items-center justify-between mt-5 pt-4 border-t border-white/8">
+                    <span className="text-white/30 text-[11px] font-medium">{p.date}</span>
+                    <div className="flex items-center gap-1.5 text-white/50 text-[12px] font-semibold group-hover:text-white transition-colors">
+                      <Play size={12} className="fill-current" /> Listen now
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          SECTION 11 — CONTACT / FOOTER 
+      ═══════════════════════════════ */}
+      <section className="w-full py-28 px-6 md:px-10" style={{ background: '#000B21', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <div className="max-w-[900px] mx-auto text-center">
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 border border-white/10 bg-white/5 animate-borderDance">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-white/60">Get In Touch</span>
+          </div>
+          <h2 className="text-5xl md:text-7xl tracking-tight mb-6 leading-none text-white" style={{ fontWeight: 300 }}>
+            Let&apos;s <span className="font-bold text-white/80">Build</span><br />
+            <span className="font-bold text-white">Something.</span>
+          </h2>
+          <p className="text-white/40 max-w-lg mx-auto mb-12 text-base leading-relaxed">Professor · Consultant · Speaker · Technical Partner — open for conversations that create impact.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <button onClick={() => setIsMeetingModalOpen(true)} className="flex items-center justify-center gap-2 border border-white/20 bg-white/5 backdrop-blur text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 hover:-translate-y-1 transition-all">
+              <Calendar size={18} /> Schedule a Meeting
+            </button>
+            <Link href="/hire" className="flex items-center justify-center gap-2 px-10 py-4 rounded-full font-bold hover:-translate-y-1 transition-all text-black bg-white">
+              Hire Me <ArrowRight size={18} />
+            </Link>
+          </div>
+          <div className="flex flex-wrap justify-center gap-6 mb-16 text-sm text-white/40">
+            <a href="mailto:info.souhardya.bose@gmail.com" className="flex items-center gap-2 hover:text-white transition-colors"><Mail size={15} /> info.souhardya.bose@gmail.com</a>
+            <a href="tel:+918582988799" className="flex items-center gap-2 hover:text-white transition-colors"><Phone size={15} /> +91 8582988799</a>
+            <span className="flex items-center gap-2"><MapPin size={15} /> Punjab, India</span>
+          </div>
+          <div className="border-t pt-10 flex flex-col md:flex-row justify-between items-center gap-4 border-white/5">
+            <div className="font-black text-white text-xl">Souhardya <span className="font-light text-white/30 italic">Bose.</span></div>
+            <div className="flex gap-3">
+              {[{ icon: <Linkedin size={16} />, href: 'https://linkedin.com' }, { icon: <Github size={16} />, href: 'https://github.com' }, { icon: <Youtube size={16} />, href: 'https://youtube.com' }, { icon: <Mail size={16} />, href: 'mailto:info.souhardya.bose@gmail.com' }].map((s, i) => (
+                <a key={i} href={s.href} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center border hover:scale-110 transition-all text-white/60 hover:text-white border-white/10 hover:border-white/20 bg-white/5">{s.icon}</a>
+              ))}
+            </div>
+            <p className="text-white/20 text-xs">© 2025 Souhardya Bose. All rights reserved.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          VIDEO PLAYER MODAL
+      ═══════════════════════════════ */}
+      {activeVideo && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-xl animate-fadeIn">
+          <div className="relative w-full max-w-[400px] h-[85vh] max-h-[850px] bg-black rounded-[2rem] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] animate-modalIn border border-white/10">
+            {/* Close Button */}
+            <button 
+              onClick={() => setActiveVideo(null)}
+              className="absolute top-4 right-4 z-50 w-10 h-10 bg-black/60 hover:bg-white/20 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-all shadow-lg"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <iframe 
+              src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&mute=0&rel=0&playsinline=1`} 
+              className="w-full h-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
+}
