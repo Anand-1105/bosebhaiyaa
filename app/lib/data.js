@@ -1563,7 +1563,7 @@ export const MEETS = [
     category: 'Tech Leader',
     color: '#E11D48',
     photos: [
-      '/img-1/meets/ramesh-venugopalsamy.png',
+      '/img/gallery/ramesh-venugopalsamy.png',
     ],
   },
   {
@@ -1585,7 +1585,7 @@ export const MEETS = [
     category: 'Tech Leader',
     color: '#0056D2',
     photos: [
-      '/img-1/meets/ashutosh-gupta.png',
+      '/img/gallery/ashutosh-gupta.png',
     ],
   },
   {
@@ -1595,8 +1595,7 @@ export const MEETS = [
     category: 'Tech Leader',
     color: '#0D9488',
     photos: [
-      '/img/meets/shailesh-kumar-1.jpeg',
-      '/img/meets/shailesh-kumar-1.jpeg',
+      '/img/gallery/shailesh-new.jpg',
       '/img/meets/shailesh-kumar-2.jpeg',
       '/img/meets/shailesh-kumar-3.jpeg',
     ],
@@ -1609,7 +1608,7 @@ export const MEETS = [
     category: 'Educator',
     color: '#F59E0B',
     photos: [
-      '/img/meets/love babbar.jpg',
+      '/img/gallery/love.jpg',
     ],
     linkedin: 'https://www.linkedin.com/in/love-babbar/',
   },
