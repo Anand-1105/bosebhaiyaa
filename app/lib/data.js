@@ -678,7 +678,7 @@ export const PEOPLE = [
     prev: 'Meta / Salesforce / Tesla',
     tags: ['Tech Lead', 'Ex-Meta', 'Ex-Tesla', 'Career Growth'],
     li: 'https://www.linkedin.com/in/hemant-pandey/',
-    img: '/img/gallery/hemant.JPG',
+    img: '/img/gallery/hemant.jpg',
     posts: [],
   },
   {
