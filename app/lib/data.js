@@ -1657,7 +1657,7 @@ export const MEETS = [
   },
   {
     name: 'Dr. Preeti Bajaj',
-    role: 'Vice Chancellor',
+    role: 'Founder, Former Vice Chancellor LPU & Galgotias',
     org: 'Radhe Krishna Educational and Research Foundation',
     category: 'Academia',
     color: '#E11D48',
