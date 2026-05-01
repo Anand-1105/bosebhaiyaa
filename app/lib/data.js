@@ -1402,7 +1402,7 @@ A big thank you to Souhardya Bose, SAMI ANAND, Rajya Vardhan Mishra and the stud
   },
   {
     name: 'Dr. Preeti Bajaj',
-    role: 'Vice Chancellor & Academic Leader',
+    role: 'Radhe Krishna Educational and Research Foundation',
     text: 'Met Souhardya Bose at KIET. Great to reconnect. Remembering by past students makes any teacher very happy and same joy I had when he came to meet me travelling all the way form Jalandhar. Thank you',
     linkedin: 'https://www.linkedin.com/posts/preeti-bajaj-49415b7_met-souhardya-bose-at-kiet-great-to-reconnect-ugcPost-7248242355294666752-4_UA/',
     avatar: '/img/testimonials/preeti.jpg',
@@ -1657,7 +1657,7 @@ export const MEETS = [
   },
   {
     name: 'Dr. Preeti Bajaj ',
-    role: 'Ex: Vice Chancellor LPU, KIET Group, Galgotias University',
+    role: 'Radhe Krishna Educational and Research Foundation',
     org: '',
     category: 'Academia',
     color: '#E11D48',
