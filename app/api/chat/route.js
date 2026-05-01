@@ -1,70 +1,155 @@
-import { createOpenAI } from '@ai-sdk/openai';
 import { streamText } from 'ai';
-
-// Import all data from the portfolio to feed to the AI
+import { createOpenAI } from '@ai-sdk/openai';
 import { 
-  HERO, NAV, STATS, ABOUT_IMAGES, ABOUT_HIGHLIGHTS, 
-  ABOUT_ROLES, ABOUT_EDUCATION, ABOUT_QUICK_FACT, 
-  EXPERIENCE, TECHFLUENCE, OTHER_EVENTS, STARTUPS, 
-  PROGRAM_CARDS, PROGRAM_GALLERY, SKILLS_TECH, 
-  SKILLS_PM, SKILLS_TOOLS, KEY_PROJECT, ACHIEVEMENTS, 
-  CERTS, PEOPLE, SOCIAL_COMMENTS, TESTIMONIALS, 
-  VIDEO_TESTIMONIALS, PODCASTS, CONTACT, SOCIAL_LINKS 
-} from '../../lib/data';
+  HERO, STATS, EXPERIENCE, TECHFLUENCE, 
+  STARTUPS, ACHIEVEMENTS, CONTACT, SOCIAL_LINKS, KEY_PROJECT,
+  PATENTS, RESEARCH, VIDEO_TESTIMONIALS, PODCASTS
+} from '@/app/lib/data';
 
-// Create a custom OpenAI client pointing to OpenRouter
-const openrouter = createOpenAI({
-  baseURL: 'https://openrouter.ai/api/v1',
-  apiKey: process.env.OPENROUTER_API_KEY,
-  // OpenRouter requires standard HTTP headers for OpenAI compatibility depending on the fetch call,
-  // but Vercel AI SDK handles it smoothly. We'll set a default header just in case.
-  headers: {
-    'HTTP-Referer': 'https://souhardyabose.com', // Optional, for including your app on openrouter.ai rankings.
-    'X-Title': 'Souhardya Bose Portfolio',       // Optional. Shows in rankings on openrouter.ai.
-  }
+const groq = createOpenAI({
+  baseURL: 'https://api.groq.com/openai/v1',
+  apiKey: process.env.GROQ_API_KEY,
 });
 
-// Compile all the data into an optimized JSON string for the system prompt
-const PORTFOLIO_DATA = JSON.stringify({
-  HERO, NAV, STATS, ABOUT_HIGHLIGHTS, ABOUT_ROLES, 
-  ABOUT_EDUCATION, EXPERIENCE, TECHFLUENCE, OTHER_EVENTS, 
-  STARTUPS, SKILLS_TECH, SKILLS_PM, SKILLS_TOOLS, 
-  KEY_PROJECT, ACHIEVEMENTS, CERTS, PEOPLE, 
-  TESTIMONIALS, PODCASTS, CONTACT, SOCIAL_LINKS
-});
+const SYSTEM_PROMPT = `You are the official AI Assistant for Souhardya Bose.
+Represent him with professionalism, warmth, and integrity.
+Souhardya is a ${HERO.badge}. ${HERO.subheadline}
 
-const SYSTEM_PROMPT = `You are a helpful, professional, and friendly AI assistant representing Souhardya Bose directly embedded on his portfolio website.
-Your job is to answer questions about Souhardya's experience, background, skills, events, and projects.
+Professional Experience:
+- Asst. Professor at Lovely Professional University (LPU).
+- Founder of Techfluence (6 editions, reach of 100K+ students and 30+ global leaders).
+- NEP Sarthi Education Reform Officer (Volunteer) at UGC, Govt. of India.
+- Y Combinator Top 10% recognized contributor at Mentro.
 
-Here is EVERYTHING you need to know about Souhardya Bose in JSON format:
-${PORTFOLIO_DATA}
+Key Projects & Research:
+- Project: ${KEY_PROJECT.title} (${KEY_PROJECT.subtitle}). Features: ${KEY_PROJECT.bullets.join('; ')}
+- Patents (${PATENTS.length}): ${PATENTS.map(p => `${p.title} (${p.status}, ${p.year})`).join('; ')}
+- Research (${RESEARCH.length}): ${RESEARCH.map(r => `${r.title} (${r.journal}, ${r.year})`).join('; ')}
+- Google Nebular Project: Contributed to Google prompt engineering research.
 
-Guidelines for responding:
-1. Always be polite, professional, and confident.
-2. If asked about your identity, say you are Souhardya's personal AI assistant.
-3. If asked about his work, reference the specific startups, roles, or organizations in the JSON data.
-4. Keep your answers relatively concise — don't overwhelm the user with long technical walls of text unless explicitly asked. Short paragraphs and bullet points are ideal.
-5. If the user asks how to reach him, provide the details from the CONTACT object (Email, Phone, LinkedIn).
-6. Never make up information. If something isn't in the provided data, politely say you don't have that information but they can reach out to him directly.
-7. Use emojis tastefully to make the conversation engaging.
-`;
+Startups:
+${STARTUPS.map(s => `- ${s.name} (${s.year}): ${s.role}. ${s.desc}`).join('\n')}
+
+Testimonials & Feedback:
+- Video Testimonials from: ${VIDEO_TESTIMONIALS.map(t => t.name).join(', ')}
+- Notable Podcast Guests & Mentors: ${PODCASTS.filter(p => p.tags.includes('Testimonial')).map(p => p.guestName).join(', ')}
+- Students and community members frequently praise Souhardya for his mentorship and impact.
+
+Achievements:
+${ACHIEVEMENTS.map(a => `- ${a.title}: ${a.desc}`).join('\n')}
+
+Contact Information:
+- Email: ${CONTACT.email}
+- Phone: ${CONTACT.phone}
+- LinkedIn: ${SOCIAL_LINKS.find(l => l.platform === 'linkedin')?.href}
+
+Style Guidelines:
+1. Use **bold** (e.g., **Souhardya Bose**, **TeachGenie**) for names, projects, and key terms.
+2. Be professional yet warm. Always refer to Souhardya in the first person ("I") or as "Souhardya".
+3. If asked about a meeting or scheduling, always provide the Calendly link: https://calendly.com/anand01ts/30min
+4. Keep responses concise and structured.
+5. If you don't know something specific, politely direct them to his contact info.`;
 
 export async function POST(req) {
   try {
-    const { messages } = await req.json();
+    const { messages, type } = await req.json();
+    
+    const formattedMessages = messages.map(m => ({
+      role: m.role === 'user' ? 'user' : 'assistant',
+      content: m.content
+    })).filter(m => m.content && m.content.trim());
 
-    const result = await streamText({
-      model: openrouter('meta-llama/llama-3.1-8b-instruct:free'), // Fallback to a fast, reliable model on OR
-      system: SYSTEM_PROMPT,
-      messages,
-      temperature: 0.7,
-      maxTokens: 500,
+    if (type === 'summary') {
+      const summaryResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'llama-3.1-8b-instant',
+          messages: [
+            { role: 'system', content: 'Summarize the following conversation in 3-5 words for a chat title. Be concise and professional. Do not use quotes.' },
+            ...formattedMessages
+          ],
+          temperature: 0.3,
+          max_tokens: 20,
+        }),
+      });
+
+      if (!summaryResponse.ok) throw new Error('Summary failed');
+      const data = await summaryResponse.json();
+      const title = data.choices[0]?.message?.content || 'New Conversation';
+      return new Response(JSON.stringify({ title }), {
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'llama-3.1-8b-instant',
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          ...formattedMessages
+        ],
+        stream: true,
+        temperature: 0.7,
+      }),
     });
 
-    return result.toDataStreamResponse();
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error?.message || 'Groq API error');
+    }
+
+    const stream = new ReadableStream({
+      async start(controller) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || '';
+
+            for (const line of lines) {
+              const trimmedLine = line.trim();
+              if (!trimmedLine || trimmedLine === 'data: [DONE]') continue;
+              if (trimmedLine.startsWith('data: ')) {
+                try {
+                  const data = JSON.parse(trimmedLine.slice(6));
+                  const content = data.choices?.[0]?.delta?.content || '';
+                  if (content) {
+                    controller.enqueue(new TextEncoder().encode(content));
+                  }
+                } catch (e) {
+                  console.error('Error parsing Groq chunk:', e);
+                }
+              }
+            }
+          }
+        } catch (e) {
+          controller.error(e);
+        } finally {
+          controller.close();
+        }
+      },
+    });
+
+    return new Response(stream);
   } catch (error) {
-    console.error('Chatbot API Error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to connect to the AI model. Please try again later.' }), {
+    console.error('CHAT_API_ERROR:', error);
+    return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });

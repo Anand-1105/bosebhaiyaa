@@ -31,7 +31,7 @@ export default function ContactSection() {
 
         {/* Contact Details */}
         <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-10 sm:mb-16 text-sm text-white/40">
-          <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-2 hover:text-white transition-colors text-xs sm:text-sm">
+          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT.email}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white transition-colors text-xs sm:text-sm relative z-10 cursor-pointer">
             <Mail size={14} /> <span className="break-all">{CONTACT.email}</span>
           </a>
           <span className="flex items-center gap-2 text-xs sm:text-sm">

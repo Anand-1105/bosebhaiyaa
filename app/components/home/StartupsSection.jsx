@@ -73,7 +73,13 @@ function HeroCard({ s }) {
           <div>
             {/* Top row */}
             <div className="flex flex-wrap items-center gap-2.5 mb-6">
-              <span className="text-4xl">{s.icon}</span>
+              {s.icon.startsWith('/') ? (
+                <div className="w-12 h-12 rounded-xl overflow-hidden border border-white/10 bg-white p-2 shrink-0">
+                  <img src={s.icon} alt={s.name} className="w-full h-full object-contain" />
+                </div>
+              ) : (
+                <span className="text-4xl">{s.icon}</span>
+              )}
               <span className="text-[10px] font-black uppercase tracking-[0.18em] px-3 py-1 rounded-full border"
                 style={{ color: s.color, borderColor: `${s.color}40`, background: `${s.color}12` }}>
                 {s.tag}
@@ -156,9 +162,13 @@ function StandardCard({ s }) {
       {isEmpty ? (
         /* ── Coming-soon / empty state ── */
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-8 text-center gap-4">
-          <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl"
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl overflow-hidden"
             style={{ background: `${s.color}15`, border: `1px solid ${s.color}30` }}>
-            {s.icon}
+            {s.icon.startsWith('/') ? (
+              <img src={s.icon} alt={s.name} className="w-full h-full object-contain p-2" />
+            ) : (
+              s.icon
+            )}
           </div>
           <div>
             <span className="text-[10px] font-bold uppercase tracking-widest mb-2 block" style={{ color: `${s.color}cc` }}>{s.tag}</span>
@@ -175,9 +185,13 @@ function StandardCard({ s }) {
           {/* Content */}
           <div className="relative z-10 p-6 sm:p-7 flex-1 flex flex-col">
             <div className="flex items-start justify-between mb-5">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl"
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl overflow-hidden"
                 style={{ background: `${s.color}15`, border: `1px solid ${s.color}30` }}>
-                {s.icon}
+                {s.icon.startsWith('/') ? (
+                  <img src={s.icon} alt={s.name} className="w-full h-full object-contain p-2" />
+                ) : (
+                  s.icon
+                )}
               </div>
               <span className="inline-flex items-center gap-1.5 text-[9px] font-black uppercase tracking-[0.2em] px-2.5 py-1 rounded-full"
                 style={{ background: status.bg, border: `1px solid ${status.border}`, color: status.text }}>

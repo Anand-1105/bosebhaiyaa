@@ -1,10 +1,50 @@
 "use client";
 
 import React from 'react';
-import { Linkedin, Youtube, Calendar } from 'lucide-react';
+import Link from 'next/link';
+import { Linkedin, Youtube, Calendar, Image, Mic } from 'lucide-react';
 import { HERO, NAV, MARQUEE_ITEMS } from '../../lib/data';
 
 export default function HeroSection({ onScheduleMeeting }) {
+  const [displayItems, setDisplayItems] = React.useState([...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS]);
+
+  React.useEffect(() => {
+    // Create a randomized, extended set of items to prevent duplicates on screen
+    // Repeat the original set 3 times to make the list long enough
+    const extended = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
+    
+    // Fisher-Yates Shuffle with a simple check for adjacent duplicates
+    const shuffle = (array) => {
+      let shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    };
+
+    let result = shuffle(extended);
+    
+    // Simple pass to fix adjacent duplicates
+    let attempts = 0;
+    while (attempts < 50) {
+      let hasAdjacent = false;
+      for (let i = 0; i < result.length; i++) {
+        const prev = i === 0 ? result[result.length - 1] : result[i - 1];
+        if (result[i] === prev) {
+          hasAdjacent = true;
+          // Swap with a random position
+          const swapIdx = Math.floor(Math.random() * result.length);
+          [result[i], result[swapIdx]] = [result[swapIdx], result[i]];
+        }
+      }
+      if (!hasAdjacent) break;
+      attempts++;
+    }
+    
+    setDisplayItems(result);
+  }, []);
+
   return (
     <section className="relative w-full min-h-screen flex flex-col justify-center items-center overflow-hidden" style={{ borderBottomLeftRadius: '40px', borderBottomRightRadius: '40px' }}>
 
@@ -20,11 +60,7 @@ export default function HeroSection({ onScheduleMeeting }) {
       {/* ── Hero Content ── */}
       <main className="relative z-20 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 pt-28 sm:pt-32 pb-20 sm:pb-24 flex flex-col items-center text-center">
 
-        {/* Badge pill */}
-        <div className="inline-flex items-center gap-2 rounded-full px-4 sm:px-6 py-2 sm:py-2.5 mb-6 sm:mb-8 text-white text-xs sm:text-sm font-semibold" style={{ background: 'linear-gradient(180deg,rgba(0,0,0,0.25) 2%,rgba(18,62,151,0.35) 49%,rgba(100,137,212,0.25) 100%)', boxShadow: '0 1px 2px rgba(0,42,254,0.12), inset 0 0 10px rgba(255,255,255,0.12)', border: '1px solid rgba(132,173,255,0.2)' }}>
-          <span className="w-2 h-2 rounded-full bg-[#84ADFF] animate-pulse shrink-0" />
-          {HERO.badge}
-        </div>
+
 
         {/* Headline */}
         <h1 className="leading-[1.05] tracking-tight mb-4 sm:mb-6 text-white drop-shadow-2xl max-w-5xl px-2" style={{ fontSize: 'clamp(2.2rem,5.5vw,5rem)', fontWeight: 300 }}>
@@ -76,13 +112,55 @@ export default function HeroSection({ onScheduleMeeting }) {
             </div>
           ))}
         </div>
+
+        {/* Media Navigation Dock (Inspiration Style) */}
+        <div className="mt-12 sm:mt-16 animate-fadeUp" style={{ animationDelay: '0.4s' }}>
+          <div className="inline-flex items-center gap-1 p-2 rounded-[28px] bg-black/40 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <Link 
+              href="/gallery" 
+              className="flex items-center gap-3 px-6 py-3.5 rounded-[22px] transition-all group relative overflow-hidden bg-white/5 hover:bg-[#84ADFF]/20 border border-transparent hover:border-[#84ADFF]/30"
+            >
+              <div className="relative z-10 w-8 h-8 rounded-xl bg-[#84ADFF]/20 flex items-center justify-center text-[#84ADFF] group-hover:scale-110 transition-transform group-hover:shadow-[0_0_15px_rgba(132,173,255,0.5)]">
+                <Image size={18} />
+              </div>
+              <div className="flex flex-col items-start pr-2">
+                <span className="text-white text-xs font-bold tracking-tight">Gallery</span>
+                <span className="text-[9px] text-white/40 uppercase tracking-widest font-black">Visual Log</span>
+              </div>
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#84ADFF] shadow-[0_0_8px_#84ADFF] opacity-0 group-hover:opacity-100 transition-opacity" />
+            </Link>
+
+            <div className="w-px h-8 bg-white/10 mx-1" />
+
+            <Link 
+              href="/podcasts" 
+              className="flex items-center gap-3 px-6 py-3.5 rounded-[22px] transition-all group relative overflow-hidden bg-white/5 hover:bg-[#F59E0B]/20 border border-transparent hover:border-[#F59E0B]/30"
+            >
+              <div className="relative z-10 w-8 h-8 rounded-xl bg-[#F59E0B]/20 flex items-center justify-center text-[#F59E0B] group-hover:scale-110 transition-transform group-hover:shadow-[0_0_15px_rgba(245,158,11,0.5)]">
+                <Mic size={18} />
+              </div>
+              <div className="flex flex-col items-start pr-2">
+                <span className="text-white text-xs font-bold tracking-tight">Podcasts</span>
+                <span className="text-[9px] text-white/40 uppercase tracking-widest font-black">Deep Talks</span>
+              </div>
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#F59E0B] shadow-[0_0_8px_#F59E0B] opacity-0 group-hover:opacity-100 transition-opacity" />
+            </Link>
+          </div>
+        </div>
       </main>
 
       {/* ── Marquee strip at bottom ── */}
       <div className="absolute bottom-0 left-0 right-0 z-20 py-3 sm:py-4 mask-marquee overflow-hidden" style={{ background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(8px)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="flex gap-8 sm:gap-10 animate-marquee whitespace-nowrap" style={{ width: 'max-content' }}>
-          {MARQUEE_ITEMS.map((label, i) => (
-            <span key={i} className="text-white/50 text-[10px] sm:text-xs font-semibold uppercase tracking-widest">{label}</span>
+        <div className="flex w-max animate-marquee hover:[animation-play-state:paused] cursor-pointer transition-opacity duration-300">
+          {/* Two sets of items for seamless looping */}
+          {[1, 2].map((set) => (
+            <div key={set} className="flex items-center gap-8 sm:gap-10 pr-8 sm:pr-10 whitespace-nowrap">
+              {displayItems.map((label, i) => (
+                <span key={i} className="text-white/50 text-[10px] sm:text-xs font-semibold uppercase tracking-widest hover:text-white/90 transition-colors">
+                  {label}
+                </span>
+              ))}
+            </div>
           ))}
         </div>
       </div>

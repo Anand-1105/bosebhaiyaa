@@ -51,10 +51,10 @@ export default function AboutSection() {
 
             <div className="text-white/60 text-base sm:text-lg leading-relaxed mb-10 space-y-4">
               <p>
-                I&apos;m <span className="font-bold text-white/90">{HERO.name}</span> — Assistant Professor &amp; Head of Student Success at Lovely Professional University. I bridge academia &amp; industry through modern education, hands-on product building, and massive impact events.
+                I&apos;m <span className="font-bold text-white/90">{HERO.name}</span> — Assistant Professor. I bridge academia &amp; industry through modern education, hands-on product building, and massive impact events.
               </p>
               <p>
-                Having founded Techfluence and built platforms reaching <span className="font-bold text-[#84ADFF]">9M+ people</span> globally, I focus on shaping the next generation of builders, founders, and innovators.
+                Having founded Techfluence and built platforms reaching <span className="font-bold text-[#84ADFF]">100K+ people</span> globally, I focus on shaping the next generation of builders, founders, and innovators.
               </p>
             </div>
 

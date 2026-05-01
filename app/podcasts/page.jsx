@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Navbar from '../components/home/Navbar';
+import SubNavbar from '../components/common/SubNavbar';
 import ContactSection from '../components/home/ContactSection';
 import { Mic, Play, Calendar, Clock, ArrowRight, Video, Youtube } from 'lucide-react';
 import { PODCASTS, VIDEO_TESTIMONIALS } from '../lib/data';
@@ -12,9 +13,10 @@ export default function PodcastsPage() {
   return (
     <main className="bg-[#060D25] text-white min-h-screen selection:bg-[#3D5BF1]/30">
       <Navbar />
+      <SubNavbar />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 md:px-10 overflow-hidden text-center">
+      <section className="relative pt-48 pb-20 px-4 sm:px-6 md:px-10 overflow-hidden text-center">
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0" style={{ backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-full bg-gradient-to-b from-[#3D5BF1]/10 to-transparent blur-[120px] pointer-events-none" />
         

@@ -25,7 +25,7 @@ export const HERO = {
   name: 'Souhardya Bose',                          // Your full name
   tagline: 'Professor. Builder.',                  // First part of large title
   taglineHighlight: 'Lead',                     // Colored part of large title
-  subheadline: 'I turn classrooms into launchpads and ideas into movements. Head of Student Success at LPU. Founder of Techfluence — 6 editions, 9M+ reach, 30+ global leaders shaping tomorrow\'s tech landscape.',
+  subheadline: 'Architecting scalable AI solutions and cross-functional ecosystems. Founder of Techfluence — Orchestrating 6 global editions with 100K+ reach, integrating 30+ industry leaders to redefine the future of intelligent systems.',
 
   videoSrc: '/homepage.mp4',                       // Background video file
   studentCount: '15k+ students mentored',          // Text next to the small avatars
@@ -50,15 +50,15 @@ export const STATS = [
   { value: '6', label: 'Patents Filed' },
   { value: '2', label: 'Research Papers' },
   { value: '20K+', label: 'Students Impacted' },
-  { value: '9M+', label: 'Content Reach' },
+  { value: '100K+', label: 'Content Reach' },
 ];
 
 // ── 3. ANIMATED ROLES (The changing text in the header) ─────────────────────
 export const ROLES = [
+  'AI Evangelist & Researcher',
   'Professor @ LPU',
   'Product & Community Leader',
   'Full-Stack Developer',
-  'AI Evangelist',
 ];
 
 // ── 4. NAVIGATION BAR (Top menu links) ──────────────────────────────────────
@@ -70,10 +70,7 @@ export const NAV = {
     { label: 'Experience', href: '/experience' },
     { label: 'Professional Praise', href: '/recommendations' },
     { label: 'Student Feedback', href: '/testimonials' },
-    { label: 'Patents', href: '/patents' },
-    { label: 'Research Papers', href: '/research' },
-    { label: 'Gallery', href: '/gallery' },
-    { label: 'Podcasts', href: '/podcasts' },
+    { label: 'Patents & Research', href: '/patents-research' },
     { label: 'Hire Me', href: '/hire' },
   ],
   resumeHref: 'https://drive.google.com/file/d/1rNVCTDXIRvFbnHwyfdmMISTOWQXS--xE/view',             // Link to your resume file
@@ -86,14 +83,14 @@ export const MARQUEE_ITEMS = [
   '🧪 Google Nebular Contributor',
   '🏆 Y Combinator Top 10%',
   '🏛️ UGC — Govt. of India',
-  '📡 9M+ Community Reach',
+  '📡 100K+ Community Reach',
   '📋 6 Patents Filed',
   '🌐 NASSCOM Community',
   '🎓 LPU — Lovely Professional University',
   '🧪 Google Nebular Contributor',
   '🏆 Y Combinator Top 10%',
   '🏛️ UGC — Govt. of India',
-  '📡 9M+ Community Reach',
+  '📡 100K+ Community Reach',
   '📋 6 Patents Filed',
   '🌐 NASSCOM Community',
 ];
@@ -115,7 +112,7 @@ export const ABOUT_HIGHLIGHTS = [
   { icon: 'building', text: 'Co-built TeachGenie — AI teaching platform at LPU', color: '#7C3AED' },
   { icon: 'building', text: 'NEP Sarthi Reform Officer, UGC — Govt. of India', color: '#10B981' },
   { icon: 'rocket', text: 'Mentro — 50K+ downloads, Y Combinator Top 10%', color: '#F59E0B' },
-  { icon: 'globe', text: 'Techfluence — 6 editions, 9M+ reach, 30+ leaders', color: '#4361EE' },
+  { icon: 'globe', text: 'Techfluence — 6 editions, 100K+ reach, 30+ leaders', color: '#4361EE' },
   { icon: 'sparkles', text: 'Google Nebular Contributor · 6 Patents Filed', color: '#7C3AED' },
 ];
 
@@ -145,12 +142,12 @@ export const ABOUT_QUICK_FACT = {
 export const EXPERIENCE = [
   {
     period: 'Jul 2025 – Present',
-    role: 'Asst. Professor & SCC Head',
+    role: 'Asst. Professor',
     org: 'Lovely Professional University',
     color: '#4361EE',
     img: '/img/gallery/14.jpeg',
     bullets: [
-      'Led student success for 20,000+ CSE students',
+      'Mentoring 20,000+ CSE students',
       'Managed 150+ core members & 20+ clubs',
       'Organized 50+ tech events & onboarded 30+ CXOs',
       'Co-built AI platform: TeachGenie',
@@ -164,7 +161,7 @@ export const EXPERIENCE = [
     img: '/img/gallery/15.jpeg',
     bullets: [
       'Founded Techfluence (6 editions) & Finfluence',
-      'Achieved 9M+ reach with 30+ global leaders',
+      'Achieved 100K+ reach with 30+ global leaders',
       'Led 250+ students & 30+ staff',
       'Built event + influencer tech platform',
     ],
@@ -210,7 +207,7 @@ export const TECHFLUENCE = [
   {
     edition: 1,
     date: 'Feb 2023',
-    title: 'Techfluence 1.0 — The Ignition',
+    title: 'Techfluence: Part 1 — The Ignition',
     desc: 'The founding edition that kickstarted a tech community at LPU. Focused on emerging tech trends and student entrepreneurship.',
     guests: [
       {
@@ -273,10 +270,10 @@ export const TECHFLUENCE = [
     ]
   },
   {
-    edition: 2, date: 'Jun 2023', title: 'Techfluence 2.0 — The Builder',
+    edition: 2, date: 'Jun 2023', title: 'Techfluence: Part 2 — The Builder',
     desc: 'Focused on hands-on product building. Students shipped real MVPs during 24-hour hackathon sessions.',
     guests: [
-      { name: 'Vivek Sridhar', desc: 'CTO - Microsoft for Startups | AI Advisor | Investor | Founder', linkedin: 'https://www.linkedin.com/in/vivsridh/', tag: 'CTO - Microsoft for Startups', sirComment: '', importantInfo: ['Conducted live PRD workshops', ''], img: '/img/techfluence/s2/guests/guest1.jpg' },
+      { name: 'Vivek Sridhar', desc: 'CTO - Microsoft for Startups | AI Advisor | Investor | Founder', linkedin: 'https://www.linkedin.com/in/vivsridh/', tag: 'CTO - Microsoft for Startups', sirComment: '', importantInfo: ['Conducted live PRD workshops', ''], img: '/img/gallery/vivek-sridhar-award.jpg' },
     ],
     reach: '1.5M+', attendees: '800+',
     img: '/img/carousel/2.jpeg',
@@ -785,7 +782,7 @@ export const PEOPLE = [
     prev: 'Microsoft',
     tags: ['CTO', 'Microsoft', 'AI Advisor', 'Investor'],
     li: 'https://www.linkedin.com/in/vivsridh/',
-    img: '/img/gallery/vivek-sridhar-new.jpg',
+    img: '/img/gallery/vivek-sridhar-award.jpg',
     posts: [],
   },
   {
@@ -858,7 +855,7 @@ export const PEOPLE = [
 export const OTHER_EVENTS = [
   {
     id: 101,
-    title: 'Techfluence 1',
+    title: 'Techfluence: Part 1',
     subtitle: 'Seasons 1, 2 & 3',
     date: '2023',
     description: 'The founding editions that kickstarted a tech community at LPU. Focused on emerging tech trends, hands-on product building, and open-source impact.',
@@ -877,7 +874,7 @@ export const OTHER_EVENTS = [
       { src: '/img/techfluence/s1/guests/guest2.jpg', label: 'Abhishek Kumar — Senior Engineering Leader | Ex-Google' },
       { src: '/img/techfluence/s1/guests/guest3.jpg', label: 'Shashank Mishra — Staff Data Engineer @ Prophecy' },
       { src: '/img/techfluence/s1/guests/guest4.jpg', label: 'Rocky Bhatia — Architect @ Adobe | GenAI' },
-      { src: '/img/techfluence/s2/guests/guest1.jpg', label: 'Vivek Sridhar — CTO - Microsoft for Startups' },
+      { src: '/img/gallery/vivek-sridhar-award.jpg', label: 'Vivek Sridhar — CTO - Microsoft for Startups' },
       { src: '/img/techfluence/s3/guests/guest1.jpg', label: 'Saumya Singh — International Open Source Awardee' },
       { src: '/img/techfluence/s3/guests/guest2.jpg', label: 'Sandeep Jain — Founder - GeeksforGeeks' },
       { src: '/img/techfluence/s3/guests/guest3.jpg', label: 'Darika Jain — Founder, ImpactD | 2x WEF Awardee' },
@@ -889,7 +886,7 @@ export const OTHER_EVENTS = [
   },
   {
     id: 102,
-    title: 'Techfluence 2',
+    title: 'Techfluence: Part 2',
     subtitle: 'Seasons 4, 5 & 6',
     date: '2024-25',
     description: 'Scaling to national impact and global leadership. Featuring engineering leaders from Google, Microsoft, and Volvo, and crossing 5M+ cumulative reach.',
@@ -1046,7 +1043,7 @@ export const STARTUPS = [
     color: '#7C3AED',
     metrics: [],
     img: '/img/startup/techgeani .jpeg',
-    icon: '🎓',
+    icon: '/img/startup/TechGenieMascot.jpg',
     link: 'https://www.teachgenie.ai/',
     linkedin: 'https://www.linkedin.com/company/teachgenie-ai/',
   },
@@ -1060,7 +1057,7 @@ export const STARTUPS = [
     color: '#0D9488',
     metrics: [],
     img: '',
-    icon: '🤝',
+    icon: '/img/startup/mentroicon.jpg',
     link: 'https://mentro.tech/',
     linkedin: 'https://www.linkedin.com/company/mentro-official/',
   },
@@ -1074,7 +1071,7 @@ export const STARTUPS = [
     color: '#3D5BF1',
     metrics: [],
     img: '',
-    icon: '💻',
+    icon: '/img/startup/vickybytes_logo.jpg',
     link: 'https://vickybytes.com/',
     linkedin: 'https://www.linkedin.com/company/vickybytes/',
   },
@@ -1190,30 +1187,32 @@ export const CLASSROOM_PHOTOS = FINAL_SOURCES.map(src => ({
 // Languages, Frameworks, and Tools
 
 export const SKILLS_TECH = [
+  { name: 'TensorFlow', icon: '🧠', color: '#F97316' },
+  { name: 'LangChain', icon: '🦜', color: '#10B981' },
+  { name: 'Generative AI', icon: '✨', color: '#7C3AED' },
   { name: 'Python', icon: '🐍', color: '#3B82F6' },
-  { name: 'JavaScript', icon: '⚡', color: '#F59E0B' },
+  { name: 'FastAPI', icon: '🚀', color: '#A78BFA' },
   { name: 'React.js', icon: '⚛️', color: '#38BDF8' },
   { name: 'Node.js', icon: '🟢', color: '#4ADE80' },
-  { name: 'TensorFlow', icon: '🧠', color: '#F97316' },
-  { name: 'FastAPI', icon: '🚀', color: '#A78BFA' },
+  { name: 'JavaScript', icon: '⚡', color: '#F59E0B' },
   { name: 'AWS', icon: '☁️', color: '#FB923C' },
-  { name: 'PostgreSQL', icon: '🐘', color: '#60A5FA' },
   { name: 'Google Cloud', icon: '🌐', color: '#34A853' },
 ];
 
 export const SKILLS_PM = [
+  { name: 'Prompt Engineering', icon: '✨', color: '#A78BFA' },
+  { name: 'AI Product Strategy', icon: '📈', color: '#7C3AED' },
   { name: 'Product Roadmaps', icon: '🗺️', color: '#A78BFA' },
   { name: 'Agile / Scrum', icon: '🔄', color: '#38BDF8' },
   { name: 'User Research', icon: '🔍', color: '#F59E0B' },
-  { name: 'A/B Testing', icon: '📊', color: '#4ADE80' },
-  { name: 'Prompt Engineering', icon: '✨', color: '#A78BFA' },
 ];
 
 export const SKILLS_TOOLS = [
-  { name: 'Figma', icon: '🎨', color: '#F87171' },
-  { name: 'Jira', icon: '📋', color: '#60A5FA' },
-  { name: 'Postman', icon: '📮', color: '#FB923C' },
-  { name: 'ChatGPT', icon: '🤖', color: '#4ADE80' },
+  { name: 'Hugging Face', icon: '🤗', color: '#FFD21E' },
+  { name: 'Pinecone / Vector DBs', icon: '🌲', color: '#243A5E' },
+  { name: 'Weights & Biases', icon: '📊', color: '#FFBE00' },
+  { name: 'Docker & K8s', icon: '🐳', color: '#2496ED' },
+  { name: 'Cursor / v0.dev', icon: '🖱️', color: '#5F5BD7' },
 ];
 
 // Skill category metadata (header image + icon key for each card)
@@ -1250,7 +1249,7 @@ export const ACHIEVEMENTS = [
   { icon: '✨', title: 'Google Nebular Project', desc: 'Contributed to Google prompt engineering research', color: '#34A853', img: '/img/gallery/19.jpeg' },
   { icon: '🚀', title: 'Y Combinator Top 10%', desc: 'Recognized top contributor at Mentro', color: '#EA4335', img: '/img/gallery/20.jpeg' },
   { icon: '🌏', title: 'UGC National Policy', desc: 'Represented LPU to the UGC Chairman in New Delhi', color: '#A78BFA', img: '/img/gallery/6.jpeg' },
-  { icon: '📡', title: '9M+ Content Reach', desc: 'Techfluence & education content impact', color: '#0D9488', img: '/img/gallery/7.jpeg' },
+  { icon: '📡', title: '100K+ Content Reach', desc: 'Techfluence & education content impact', color: '#0D9488', img: '/img/gallery/7.jpeg' },
 ];
 
 export const CERTS = [
@@ -1343,6 +1342,8 @@ export const STUDENT_COMMENTS = [
 
 export const PROFESSIONAL_COMMENTS = [
   {
+    name: 'Abhishek Kumar',
+    role: 'Senior Engineering Leader | Ex-Google',
     text: `I was at TechFluence 6.0 at Lovely Professional University (LPU) in Jan. 
 
 Second time speaking there (First was Techfluence 2.0 with Saumya Singh)
@@ -1354,31 +1355,43 @@ Two days, Great student interactions, and legendary hospitality from LPU, SAMI A
     avatar: '/img/testimonials/abhishek.jpg',
   },
   {
+    name: 'Shravan Tickoo',
+    role: 'Product Leader & Keynote Speaker',
     text: 'A few weeks back I had the privilege of being the keynote speaker at the Product Management Summit 2025 at LPU. Standing before 5,000+ bright students was surreal. A heartfelt thanks to LPU, Souhardya Bose, and every student who made this day unforgettable.',
     linkedin: 'https://www.linkedin.com/posts/shravantickoo_folks-a-few-weeks-back-i-had-the-privilege-ugcPost-7383748431854575616-UK-X',
     avatar: '/img/testimonials/shravan.jpg',
   },
   {
+    name: 'Mahima Hans',
+    role: 'Software Engineer @ Salesforce | Ex-Microsoft',
     text: 'The future of tech felt very real to me last weekend. I was at LPU as a speaker, talking about jobs, AI, and tech placements. Also loved sharing the stage with Abhishek Kumar, Vanshika Pandey, and Souhardya Bose.',
     linkedin: 'https://www.linkedin.com/posts/mahimahans_the-future-of-tech-felt-very-real-to-me-last-ugcPost-7426630435910266880-E7-6',
     avatar: '/img/testimonials/mahima.jpg',
   },
   {
+    name: 'Prashanth Kumar',
+    role: 'Head of Commercial Digital India @ Volvo',
     text: 'Is India Ready for the AI-First Decade? Techfluence 6.0 at LPU. Standing before that energetic crowd was humbling. I saw aspiration, discipline, and direction. That gives me confidence about the next generation of engineers.',
     linkedin: 'https://www.linkedin.com/posts/prashanth-kumar-3ab702a_techfluence-ai-engineeringleadership-ugcPost-7428302751182299136-dBEq',
     avatar: '/img/testimonials/prashant.jpg',
   },
   {
+    name: 'Hina Arora',
+    role: 'Founder @BrandBuilders',
     text: 'Second time invited to LPU for Techfluence 5.0. Day 1 with first-year students sharing the roadmap from Campus to Career. They need more than classes and grades — they need mentors. Thanks Souhardya Bose and SAMI ANAND 🙌',
     linkedin: 'https://www.linkedin.com/posts/careerwithhina_second-time-invited-to-lovely-professional-ugcPost-7373032755032424449-y3R1',
     avatar: '/img/testimonials/hina.jpg',
   },
   {
+    name: 'Vanshika Pandey',
+    role: 'SDE 2 @JPMC',
     text: 'Recently, I was invited to Lovely Professional University, Jalandhar for Techfluence 6.0 — an amazing experience. Met some incredible people, enjoyed authentic Punjabi food, and had great conversations with students. ✨',
     linkedin: 'https://www.linkedin.com/posts/vanshikapandeyy_lpu-jalandhar-recently-i-was-invited-ugcPost-7425148704451354624-d6R3',
     avatar: '/img/testimonials/vanshika.jpg',
   },
   {
+    name: 'Hemant Pandey',
+    role: 'Tech Lead | Ex-Meta, Salesforce, Tesla',
     text: `Grateful to have been part of the Techfluence panel at Lovely Professional University 
 
 It was a great time talking to the students about career growth, AI and sharing my journey along with Hina Arora and Archy Gupta 
@@ -1388,11 +1401,15 @@ A big thank you to Souhardya Bose, SAMI ANAND, Rajya Vardhan Mishra and the stud
     avatar: '/img/testimonials/hemant.jpg',
   },
   {
+    name: 'Dr. Preeti Bajaj',
+    role: 'Vice Chancellor & Academic Leader',
     text: 'Met Souhardya Bose at KIET. Great to reconnect. Remembering by past students makes any teacher very happy and same joy I had when he came to meet me travelling all the way form Jalandhar. Thank you',
     linkedin: 'https://www.linkedin.com/posts/preeti-bajaj-49415b7_met-souhardya-bose-at-kiet-great-to-reconnect-ugcPost-7248242355294666752-4_UA/',
     avatar: '/img/testimonials/preeti.jpg',
   },
   {
+    name: 'Shashank Mishra',
+    role: 'Staff Data Engineer @ Prophecy | YouTuber',
     text: `It is such an honour to be invited by Lovely Professional University as guest speaker. Feeling really excited for hashtag#Freshers_K_Saath_Baatcheet 😊😊
 
 Thank you Souhardya Bose and his team for such a great initiative in this pandemic.`,
@@ -1400,6 +1417,8 @@ Thank you Souhardya Bose and his team for such a great initiative in this pandem
     avatar: '/img/testimonials/shashank.jpg',
   },
   {
+    name: 'Ajay Suneja',
+    role: 'Front-End Engineer @ Adidas | YouTuber',
     text: `Standing in front of 2500+ curious minds at LPU was a moment to remember! 🚀
 
 The tech world is changing fast— AI, Web3, Microservices, Frontend Innovations— but the real game-changer? Your mindset, adaptability & continuous learning! 
@@ -1411,6 +1430,8 @@ Special thanks to Souhardya Bose for the kind invitation & making this possible!
     avatar: '/img/testimonials/ajay.jpg',
   },
   {
+    name: 'Arohi Khajuria',
+    role: 'Ex-Assistant Professor @ LPU',
     text: `It’s been two months since I signed off as an Assistant Professor at Lovely Professional University and I’ve been meaning to put into words just how grateful I am for this chapter. 
 To my wonderful teammates Kirti Basra Mridhu Rajput Pushpinder Kaur Dr. Himani Arora Namratta Kaushal Souhardya Bose Laxmi Devi and others. Thank you for being such a supportive, positive and driven bunch.`,
     linkedin: 'https://www.linkedin.com/posts/arohi-khajuria_gratitude-leadershipmatters-teamwork-ugcPost-7345539958297776128-v1b2/',
@@ -1490,7 +1511,7 @@ export const PODCASTS = [
 // → Copy photos to: public/img/meets/ using the filenames below
 export const MEETS = [
   {
-    name: 'UGC Chairman',
+    name: 'Prof. Dr. Mamidala Jagadesh Kumar',
     role: 'Chairman',
     org: 'University Grants Commission of India',
     category: 'Government',
@@ -1510,7 +1531,7 @@ export const MEETS = [
     category: 'Tech Leader',
     color: '#3D5BF1',
     photos: [
-      '/img/meets/vivek-sridhar-1.jpg',
+      '/img/gallery/vivek-sridhar-award.jpg',
     ],
     linkedin: 'https://www.linkedin.com/in/viveksridhar/',
   },
@@ -1715,3 +1736,156 @@ export const GALLERY_IMAGES = Array.from({ length: 12 }, (_, i) => ({
   src: `/img/gallery/${(i % 16) + 1}.jpeg`,
   alt: `Gallery image ${i + 1}`,
 }));
+
+// ── 22. INTELLECTUAL PROPERTY & RESEARCH ─────────────────────────────────────
+export const PATENTS = [
+  {
+    id: '202411078975-1',
+    title: 'ACID — Advance Candidates ID Card',
+    number: '202411078975',
+    year: '2024',
+    status: 'Published',
+    office: 'Indian Patent Office',
+    description: 'Lost/stolen ID cards enabling impersonation, unauthorized access to campus resources, academic misconduct, financial misuse.',
+    technologies: ['Smart ID Systems', 'Security', 'Campus Infrastructure'],
+    inventors: ['Prof. Souhardya Bose', 'Research Team'],
+    pdfUrl: 'https://drive.google.com/file/d/1RCQgBi7Lac1Xp5Urbksn2J06yHBvS1p1/view',
+    color: '#4361EE'
+  },
+  {
+    id: '202411078975-2',
+    title: 'Deforestation & Fire Detection',
+    number: '202411078975',
+    year: '2024',
+    status: 'Published',
+    office: 'Indian Patent Office',
+    description: 'Prevention of illegal tree cutting via knock sensors; Early forest fire detection via humidity/temperature sensors; Enhanced forest monitoring.',
+    technologies: ['IoT', 'Sensor Networks', 'Environmental Monitoring'],
+    inventors: ['Prof. Souhardya Bose'],
+    pdfUrl: 'https://drive.google.com/file/d/10guuu3I-mk8hHEUutG1LJO96Hhu-tMC1/view',
+    color: '#10B981'
+  },
+  {
+    id: '202411079567',
+    title: 'Barrier Roller with M.F.',
+    number: '202411079567',
+    year: '2024',
+    status: 'Published',
+    office: 'Indian Patent Office',
+    description: 'Enhance road safety on hilly/sharp-turn areas; prevent secondary collisions; reduce vehicle speed on impact; auto-send live location to emergency services; prevent vehicles from falling off dangerous terrain.',
+    technologies: ['Road Safety', 'IoT', 'Emergency Systems'],
+    inventors: ['Prof. Souhardya Bose'],
+    pdfUrl: 'https://bgdte8u_RK129LrReSjqHFepDT64Hmwb/view?usp=drive_link',
+    color: '#F59E0B'
+  },
+  {
+    id: 'SB-2024',
+    title: 'Smart Board (Stylus Recognition & Self-Cleaning)',
+    number: 'Proposal ID: 12318767',
+    year: '2024',
+    status: 'Proposal',
+    office: 'Indian Patent Office (LPU)',
+    description: 'A smart educational interface that differentiates between styluses and unauthorized ink markers, triggering an alarm and utilizing a motorized self-cleaning surface to prevent board damage.',
+    technologies: ['Electromagnetic Sensing', 'Pressure Detection', 'Automated Cleaning'],
+    inventors: ['Shahnawaz Alam', 'Dr. Prateek Agrawal', 'Dr. Vishu', 'Souhardya Bose'],
+    pdfUrl: 'https://docs.google.com/document/d/1htllkqnx6fucQWzNBP7nFTOel064Xq-UVVSkITFBrRc',
+    color: '#8B5CF6'
+  },
+  {
+    id: 'SL-2024',
+    title: 'SmartGuard Luggage (Active Theft Deterrence)',
+    number: 'Proposal ID: 12318767',
+    year: '2024',
+    status: 'Proposal',
+    office: 'Indian Patent Office (LPU)',
+    description: 'Advanced travel security system featuring three-level access control, biometric scanning, GPS tracking, and an active electric deterrent handle with proximity buzzers.',
+    technologies: ['Biometrics', 'GPS Tracking', 'Active Security'],
+    inventors: ['Shahnawaz Alam', 'Dr. Prateek Agrawal', 'Dr. Vishu', 'Souhardya Bose'],
+    pdfUrl: 'https://docs.google.com/document/d/1s00HyZdwxDP9cQCmjQ3K5C-C8irFUr8H-IFLyqqXNQw',
+    color: '#EF4444'
+  },
+  {
+    id: 'MCDS-2024',
+    title: 'Mobile Charger Deo Stand',
+    number: 'Proposal ID: 12318767',
+    year: '2024',
+    status: 'Proposal',
+    office: 'Indian Patent Office (LPU)',
+    description: 'Universal dual-device charging stand featuring built-in UV sanitization, active cooling fans with RGB lighting, and vacuum suction for surface stability.',
+    technologies: ['UV Sanitization', 'Thermal Management', 'Industrial Design'],
+    inventors: ['Shahnawaz Alam', 'Dr. Prateek Agrawal', 'Dr. Vishu', 'Souhardya Bose'],
+    pdfUrl: 'https://docs.google.com/document/d/1n8innkhJp7p5OA2DTvzIzGdmRX5KxLFI9gYMyrrnsVM',
+    color: '#EC4899'
+  },
+  {
+    id: 'DNJ-2024',
+    title: 'Drone with Network Jammer for Law Enforcement',
+    number: 'Proposal ID: 12318767',
+    year: '2024',
+    status: 'Proposal',
+    office: 'Indian Patent Office (LPU)',
+    description: 'Autonomous suspect-tracking drone equipped with FPV night vision, physical anchor mechanisms for vehicle attachment, and high-frequency network jammers to block evasion communication.',
+    technologies: ['Unmanned Aerial Systems', 'RF Jamming', 'Autonomous Tracking'],
+    inventors: ['Shahnawaz Alam', 'Dr. Prateek Agrawal', 'Dr. Vishu', 'Souhardya Bose'],
+    pdfUrl: 'https://docs.google.com/document/d/1m-hQXh2odW377ZoqWt3-JKS0i7BasidAX-53QtkNOG8',
+    color: '#6366F1'
+  },
+  {
+    id: 'WBCP-2024',
+    title: 'Water Bottle Cap Protector',
+    number: 'Proposal ID: 12318767',
+    year: '2024',
+    status: 'Proposal',
+    office: 'Indian Patent Office (LPU)',
+    description: 'Smart silicone protector with shock absorption, integrated UV sanitization zone, LED temperature display, and a built-in network jammer for focused work environments.',
+    technologies: ['Smart Materials', 'UV Hygiene', 'Focused Connectivity'],
+    inventors: ['Shahnawaz Alam', 'Dr. Prateek Agrawal', 'Dr. Vishu', 'Souhardya Bose'],
+    pdfUrl: 'https://docs.google.com/document/d/16SjbugqKlK1PrsdAQewslAPLuVi1pgFvkPcpxQrBQ8E',
+    color: '#06B6D4'
+  }
+];
+
+export const RESEARCH = [
+  {
+    id: 'paper-1',
+    title: 'Gastrointestinal Cancer Detection Using Deep Learning: A Comprehensive Implementation and Strategy',
+    journal: 'ICNGC-2025',
+    year: '2025',
+    status: 'Published',
+    type: 'Journal Article',
+    description: 'A robust deep learning framework for the early detection and classification of gastrointestinal cancers, integrating advanced neural architectures for high-precision diagnostic support.',
+    keywords: ['Deep Learning', 'Oncology', 'Medical Imaging', 'Strategy'],
+    authors: ['Prof. Souhardya Bose', 'Research Team'],
+    pdfUrl: 'https://drive.google.com/file/d/1335hLywRki06npkmj1ChAp-xafuUFBbQ/view',
+    color: '#3D5BF1'
+  },
+  {
+    id: 'paper-2',
+    title: 'Adaptive Learning Systems: Predictive Modeling with Electric Vehicle Chassis Material Selection using Machine learning',
+    journal: '(ICNGC-2025)',
+    year: '2025',
+    status: 'Published',
+    type: 'Conference Proceeding',
+    description: 'Exploring the intersection of educational adaptive systems and material science, utilizing predictive modeling to optimize chassis material selection for high-performance electric vehicles.',
+    keywords: ['Machine Learning', 'Electric Vehicles', 'Predictive Modeling', 'Adaptive Systems'],
+    authors: ['Prof. Souhardya Bose', 'Research Team'],
+    pdfUrl: 'https://drive.google.com/file/d/1-1DRAcqVJR5TKQvmC4UdupjMmCdtk-yA/view',
+    color: '#10B981'
+  }
+];
+
+export const IMPACT_POINTS = [
+  'Advancing pedagogical frameworks through AI integration',
+  'Developing data-driven solutions for student retention',
+  'Contributing to AI based learning systems',
+  'Bridging the gap between academic theory and industry practice'
+];
+
+export const TIMELINE_IP_RESEARCH = [
+  { year: '2025', title: 'Deep Learning in Oncology', desc: 'Published high-precision framework for Gastrointestinal Cancer detection at ICNGC.', type: 'Research' },
+  { year: '2025', title: 'AI Based Career Recommendation System', desc: 'Granted system utilizing LLMs for personalized career mapping.', type: 'Patent' },
+  { year: '2024', title: 'Intelligent Learning Analytics Platform', desc: 'Predictive analytics for student retention and outcome modeling.', type: 'Patent' },
+  { year: '2024', title: 'EV Adaptive Systems', desc: 'Developed predictive models for EV chassis material selection using machine learning.', type: 'Research' },
+  { year: '2023', title: 'AI Powered Resume Evaluation System', desc: 'Automated skill-extraction and resume scoring engine.', type: 'Patent' },
+  { year: '2022', title: 'Smart Education Monitoring System', desc: 'Real-time engagement tracking in virtual learning environments.', type: 'Patent' },
+];

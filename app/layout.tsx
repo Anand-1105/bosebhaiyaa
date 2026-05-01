@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Chatbot from "./components/common/Chatbot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Souhardya Bose — Professor · Builder · Community Leader",
   description:
-    "I turn classrooms into launchpads and ideas into movements. Head of Student Success at LPU. Founder of Techfluence — 6 editions, 9M+ reach, 30+ global leaders shaping tomorrow's tech landscape.",
+    "I turn classrooms into launchpads and ideas into movements. Founder of Techfluence — 6 editions, 100K+ reach, 30+ global leaders shaping tomorrow's tech landscape.",
 };
 
 export default function RootLayout({
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
+        <Chatbot />
       </body>
     </html>
   );

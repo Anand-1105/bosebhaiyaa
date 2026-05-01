@@ -24,7 +24,7 @@ export default function TechfluenceSection({ onGuestClick }) {
             Techfluence <span style={{ fontWeight: 700 }} className="blue-grad-text">6 Seasons</span>
           </h2>
           <p className="text-white/50 max-w-xl mx-auto text-sm sm:text-base px-4">
-            India&apos;s most impactful university-led tech community event series — 9M+ cumulative reach, 30+ global leaders.
+            India&apos;s most impactful university-led tech community event series — 100k+ cumulative reach, 30+ global leaders.
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export default function TechfluenceSection({ onGuestClick }) {
               {/* Dynamic decorative elements */}
               <div className="absolute top-[-50%] right-[-20%] w-[80%] h-[150%] bg-[#3D5BF1]/10 rounded-full blur-[100px] pointer-events-none" />
               <div className="absolute bottom-[-50%] left-[-20%] w-[60%] h-[120%] bg-[#84ADFF]/5 rounded-full blur-[80px] pointer-events-none" />
-              
+
               {/* Abstract grid pattern overlay */}
               <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 100% 100%, #ffffff 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
 
@@ -61,7 +61,7 @@ export default function TechfluenceSection({ onGuestClick }) {
                 </div>
                 <h3 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/60 leading-tight mb-3 sm:mb-4 tracking-tight">{ev.title}</h3>
                 <p className="text-[#84ADFF]/70 max-w-2xl text-sm sm:text-base md:text-lg leading-relaxed line-clamp-2 sm:line-clamp-none font-medium">{ev.desc}</p>
-                
+
                 {/* Stats Container shifted slightly */}
                 <div className="flex flex-wrap gap-6 sm:gap-10 mt-6 sm:mt-10 pt-6 border-t border-white/10">
                   {[['Reach', ev.reach], ['Attendees', ev.attendees], ['Comments', ev.comments || '500+'], ['Speakers', `${ev.guests.length}+`]].map(([label, val]) => (

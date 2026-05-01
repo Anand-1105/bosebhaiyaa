@@ -78,13 +78,18 @@ export default function RecommendationsPage() {
                     </div>
                     
                     <div className="flex-1 py-1">
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <span className="text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full"
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[13px] font-black text-gray-900 group-hover:text-[#0A66C2] transition-colors uppercase tracking-tight">
+                          {c.name}
+                        </span>
+                        <span className="text-[8px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded-full"
                           style={{ background: '#0A66C210', color: '#0A66C2', border: '1px solid #0A66C220' }}>
-                          Linkedln Verified
+                          Verified
                         </span>
                       </div>
-                      <div className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Industry Endorsement</div>
+                      <div className="text-[10px] text-gray-400 font-black uppercase tracking-widest leading-tight">
+                        {c.role}
+                      </div>
                     </div>
                   </div>
 

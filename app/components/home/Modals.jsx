@@ -185,7 +185,7 @@ export function ScheduleModal({ onClose }) {
           <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">Book a Session</h2>
           <p className="text-white/50 text-sm mb-8 text-center max-w-md">Select a convenient time for our discovery call or technical consultation.</p>
           
-          <div className="w-full rounded-2xl overflow-hidden border border-white/10 bg-white">
+          <div className="w-full rounded-2xl overflow-hidden border border-white/10 bg-white relative">
             <InlineWidget 
               url="https://calendly.com/anand01ts/30min" 
               styles={{ height: '500px' }}

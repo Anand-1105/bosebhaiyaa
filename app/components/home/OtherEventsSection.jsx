@@ -6,8 +6,16 @@ import { OTHER_EVENTS } from '../../lib/data';
 
 export default function OtherEventsSection() {
   const [activeOtherEvent, setActiveOtherEvent] = useState(0);
+  const [hoveredEvent, setHoveredEvent] = useState(0);
   const [activeGalleryEvent, setActiveGalleryEvent] = useState(null);
   const [lightboxImageIndex, setLightboxImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setActiveOtherEvent(hoveredEvent);
+    }, 40); // Minimal delay to prevent jitter while keeping it responsive
+    return () => clearTimeout(timer);
+  }, [hoveredEvent]);
 
   useEffect(() => {
     document.body.style.overflow = activeGalleryEvent !== null ? 'hidden' : 'unset';
@@ -21,7 +29,7 @@ export default function OtherEventsSection() {
       <section id="other-events" className="w-full relative py-20 sm:py-32 px-4 sm:px-6 md:px-10 overflow-hidden" style={{ background: '#060D25' }}>
         <div className="max-w-[1400px] mx-auto relative z-10">
 
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 sm:mb-16 animate-fadeUp gap-4 sm:gap-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 sm:mb-16 animate-fadeUp will-change-[opacity,transform] gap-4 sm:gap-6">
             <h2 className="text-3xl sm:text-4xl md:text-[44px] font-medium tracking-tight text-white/90">
               Campus Stage. <span className="text-white/60">National Impact.</span>
             </h2>
@@ -36,24 +44,30 @@ export default function OtherEventsSection() {
               {OTHER_EVENTS.map((event, i) => (
                 <div
                   key={i}
-                  onMouseEnter={() => setActiveOtherEvent(i)}
+                  onMouseEnter={() => setHoveredEvent(i)}
                   onClick={() => setActiveOtherEvent(i)}
-                  className={`relative overflow-hidden rounded-[2rem] xl:rounded-[2.5rem] transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer group ${activeOtherEvent === i
-                    ? 'flex-[3.5] shadow-[0_30px_60px_rgba(61,91,241,0.3)] border border-white/20'
+                  className={`relative overflow-hidden rounded-[2rem] xl:rounded-[2.5rem] transition-[flex-grow,box-shadow,opacity,border-color] duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer group will-change-[flex-grow,box-shadow] transform-gpu ${activeOtherEvent === i
+                    ? 'flex-[3.5] shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/20'
                     : 'flex-[0.8] opacity-60 hover:opacity-100 border border-white/5'
                   }`}
                 >
-                  <img src={event.gallery[0].src} className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out ${activeOtherEvent === i ? 'scale-105' : 'scale-100'}`} alt={event.title} />
-                  <div className="absolute inset-0 pointer-events-none" style={{ background: activeOtherEvent === i ? `radial-gradient(circle at 50% 100%, ${event.color}40 0%, transparent 70%)` : 'transparent', transition: 'background 1s ease' }} />
+                  <img 
+                    src={event.gallery[0].src} 
+                    loading="lazy"
+                    decoding="async"
+                    className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out will-change-transform transform-gpu ${activeOtherEvent === i ? 'scale-105' : 'scale-100'}`} 
+                    alt={event.title} 
+                  />
+                  <div className="absolute inset-0 pointer-events-none transition-opacity duration-1000 will-change-opacity" style={{ background: `radial-gradient(circle at 50% 100%, ${event.color}40 0%, transparent 70%)`, opacity: activeOtherEvent === i ? 1 : 0 }} />
                   <div className={`absolute inset-0 transition-opacity duration-700 ${activeOtherEvent === i ? 'bg-gradient-to-t from-[#000000] via-[#000000]/50 to-transparent' : 'bg-black/70 group-hover:bg-black/50'}`} />
 
-                  <div className={`absolute -bottom-10 right-10 text-[18rem] font-black text-white/[0.03] leading-none transition-all duration-[1000ms] pointer-events-none ${activeOtherEvent === i ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>0{i + 1}</div>
+                  <div className={`absolute -bottom-10 right-10 text-[18rem] font-black text-white/[0.03] leading-none transition-[transform,opacity] duration-[1000ms] will-change-transform pointer-events-none ${activeOtherEvent === i ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>0{i + 1}</div>
 
                   <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${activeOtherEvent === i ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}>
                     <h3 className="text-white font-black text-3xl tracking-[0.2em] uppercase origin-center -rotate-90 whitespace-nowrap drop-shadow-2xl opacity-80">{event.title}</h3>
                   </div>
 
-                  <div className={`absolute inset-0 p-8 md:p-12 xl:p-16 flex flex-col justify-end transition-all duration-[1000ms] ease-[cubic-bezier(0.23,1,0.32,1)] ${activeOtherEvent === i ? 'opacity-100 translate-y-0 delay-300 pointer-events-auto' : 'opacity-0 translate-y-8 pointer-events-none'}`}>
+                  <div className={`absolute inset-0 p-8 md:p-12 xl:p-16 flex flex-col justify-end transition-[transform,opacity] duration-[1000ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-[transform,opacity] ${activeOtherEvent === i ? 'opacity-100 translate-y-0 delay-300 pointer-events-auto' : 'opacity-0 translate-y-8 pointer-events-none'}`}>
                     <div className="max-w-3xl">
                       <div className="flex items-center gap-3 mb-4">
                         <div className="px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-bold uppercase tracking-widest backdrop-blur-md">{event.subtitle}</div>
@@ -85,7 +99,13 @@ export default function OtherEventsSection() {
               {OTHER_EVENTS.map((event, i) => (
                 <div key={i} className="relative overflow-hidden rounded-[1.5rem] border border-white/10 cursor-pointer" onClick={() => setActiveOtherEvent(activeOtherEvent === i ? -1 : i)}>
                   <div className="relative h-[220px] sm:h-[280px]">
-                    <img src={event.gallery[0].src} className="absolute inset-0 w-full h-full object-cover" alt={event.title} />
+                    <img 
+                      src={event.gallery[0].src} 
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 w-full h-full object-cover" 
+                      alt={event.title} 
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                     <div className="absolute bottom-0 p-5">
                       <div className="flex items-center gap-2 mb-2">

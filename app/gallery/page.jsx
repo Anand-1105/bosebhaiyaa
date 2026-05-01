@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Navbar from '../components/home/Navbar';
+import SubNavbar from '../components/common/SubNavbar';
 import ContactSection from '../components/home/ContactSection';
 import { Users, ArrowRight, Linkedin, RefreshCw, Star } from 'lucide-react';
 import { PEOPLE, CLASSROOM_PHOTOS } from '../lib/data';
@@ -103,17 +104,15 @@ export default function GalleryPage() {
   return (
     <main className="min-h-screen bg-[#060D25] text-white selection:bg-[#3D5BF1]/30">
       <Navbar />
+      <SubNavbar />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-48 pb-20 px-4 sm:px-6 md:px-10 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0" style={{ backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-full bg-gradient-to-b from-[#3D5BF1]/10 to-transparent blur-[120px] pointer-events-none" />
         
         <div className="max-w-[1400px] mx-auto relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 animate-fadeUp">
-            <Star size={14} className="text-[#84ADFF]" fill="#84ADFF" />
-            <span className="text-[11px] font-black uppercase tracking-[0.2em] text-white/60">Community Impact Gallery</span>
-          </div>
+
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight mb-6 animate-fadeUp">
             Students. Leaders. <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#84ADFF] to-[#3D5BF1]">Builders.</span>
           </h1>
@@ -164,6 +163,7 @@ export default function GalleryPage() {
           </div>
         </div>
       </section>
+
 
       <ContactSection />
     </main>
