@@ -26,7 +26,7 @@ export default function OtherEventsSection() {
 
   return (
     <>
-      <section id="other-events" className="w-full relative py-20 sm:py-32 px-4 sm:px-6 md:px-10 overflow-hidden" style={{ background: '#060D25' }}>
+      <section id="other-events" className="w-full relative py-20 sm:py-32 px-4 sm:px-6 md:px-10 overflow-hidden" style={{ background: '#060D25', contentVisibility: 'auto', containIntrinsicSize: '0 800px' }}>
         <div className="max-w-[1400px] mx-auto relative z-10">
 
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 sm:mb-16 animate-fadeUp will-change-[opacity,transform] gap-4 sm:gap-6">
@@ -47,7 +47,7 @@ export default function OtherEventsSection() {
                   onMouseEnter={() => setHoveredEvent(i)}
                   onClick={() => setActiveOtherEvent(i)}
                   className={`relative overflow-hidden rounded-[2rem] xl:rounded-[2.5rem] transition-[flex-grow,box-shadow,opacity,border-color] duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer group will-change-[flex-grow,box-shadow] transform-gpu ${activeOtherEvent === i
-                    ? 'flex-[3.5] shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/20'
+                    ? 'flex-[3.2] shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/20'
                     : 'flex-[0.8] opacity-60 hover:opacity-100 border border-white/5'
                   }`}
                 >
@@ -61,7 +61,7 @@ export default function OtherEventsSection() {
                   <div className="absolute inset-0 pointer-events-none transition-opacity duration-1000 will-change-opacity" style={{ background: `radial-gradient(circle at 50% 100%, ${event.color}40 0%, transparent 70%)`, opacity: activeOtherEvent === i ? 1 : 0 }} />
                   <div className={`absolute inset-0 transition-opacity duration-700 ${activeOtherEvent === i ? 'bg-gradient-to-t from-[#000000] via-[#000000]/50 to-transparent' : 'bg-black/70 group-hover:bg-black/50'}`} />
 
-                  <div className={`absolute -bottom-10 right-10 text-[18rem] font-black text-white/[0.03] leading-none transition-[transform,opacity] duration-[1000ms] will-change-transform pointer-events-none ${activeOtherEvent === i ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>0{i + 1}</div>
+                  <div className={`absolute -bottom-10 right-10 text-[14rem] sm:text-[16rem] md:text-[18rem] font-black text-white/[0.03] leading-none transition-[transform,opacity] duration-[1000ms] will-change-transform pointer-events-none ${activeOtherEvent === i ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>0{i + 1}</div>
 
                   <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${activeOtherEvent === i ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}>
                     <h3 className="text-white font-black text-3xl tracking-[0.2em] uppercase origin-center -rotate-90 whitespace-nowrap drop-shadow-2xl opacity-80">{event.title}</h3>
@@ -161,9 +161,9 @@ export default function OtherEventsSection() {
                 key={lightboxImageIndex} 
                 src={OTHER_EVENTS[activeGalleryEvent].gallery[lightboxImageIndex].src} 
                 alt="Gallery" 
-                className="max-w-full max-h-[75vh] object-contain shadow-2xl rounded-lg" 
+                className="max-w-full max-h-[60vh] object-contain shadow-2xl rounded-lg" 
               />
-              <div className="mt-6 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl text-center max-w-[90%] animate-fadeUp">
+              <div className="mt-4 px-6 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl text-center max-w-[90%] animate-fadeUp">
                 <p className="text-white text-base sm:text-lg font-medium tracking-tight">
                   {OTHER_EVENTS[activeGalleryEvent].gallery[lightboxImageIndex].label}
                 </p>
@@ -176,10 +176,10 @@ export default function OtherEventsSection() {
               <ChevronDown size={20} className="-rotate-90" />
             </button>
           </div>
-          <div className="h-24 sm:h-28 md:h-32 bg-black/80 backdrop-blur z-20 border-t border-white/10 flex items-center px-4 sm:px-6 gap-3 sm:gap-4 overflow-x-auto scrollbar-hide">
+          <div className="h-20 sm:h-24 md:h-28 bg-black/80 backdrop-blur z-20 border-t border-white/10 flex items-center px-4 sm:px-6 gap-3 sm:gap-4 overflow-x-auto scrollbar-hide">
             {OTHER_EVENTS[activeGalleryEvent].gallery.map((imgPath, idx) => (
               <button key={idx} onClick={() => setLightboxImageIndex(idx)} className={`shrink-0 w-24 sm:w-32 md:w-40 aspect-video rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all ${lightboxImageIndex === idx ? 'border-white opacity-100 scale-105' : 'border-transparent opacity-40 hover:opacity-100'}`}>
-                <img src={imgPath.src} className="w-full h-full object-cover" alt="Thumbnail" />
+                <img src={imgPath.src} loading="lazy" className="w-full h-full object-cover" alt="Thumbnail" />
               </button>
             ))}
           </div>

@@ -1699,7 +1699,7 @@ export const MEETS = [
   {
     name: 'Saurabh Dwivedi',
     role: '"Achor" · Show Host',
-    org: 'Allantop',
+    org: 'Lallantop',
     category: 'Media',
     color: '#E11D48',
     photos: [
